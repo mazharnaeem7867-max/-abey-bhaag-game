@@ -2,303 +2,274 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Abey Bhaag!</title>
 
 <style>
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#06111e;
-    font-family:Arial,Helvetica,sans-serif;
-    touch-action:none;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#61cdf5;
+  font-family:Arial,Helvetica,sans-serif;
+  touch-action:none;
 }
 
 #game{
-    position:relative;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#65cfff;
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
 }
 
 canvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
 }
 
 .hud{
-    position:absolute;
-    top:10px;
-    left:10px;
-    right:10px;
-    z-index:10;
-    display:flex;
-    justify-content:space-between;
-    gap:6px;
-    pointer-events:none;
+  position:absolute;
+  top:10px;
+  left:10px;
+  right:10px;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  pointer-events:none;
 }
 
-.hudBox{
-    background:#09233bf2;
-    border:3px solid white;
-    border-radius:14px;
-    padding:7px 10px;
-    color:white;
-    font-size:14px;
-    font-weight:900;
-    box-shadow:0 4px 10px #0008;
+.hud div{
+  padding:7px 11px;
+  background:#09263df2;
+  color:#fff;
+  border:3px solid #fff;
+  border-radius:14px;
+  font-weight:900;
+  box-shadow:0 4px 10px #0007;
 }
 
 .pause{
-    position:absolute;
-    top:68px;
-    left:10px;
-    z-index:15;
-    width:48px;
-    height:48px;
-    border:3px solid #17334c;
-    border-radius:14px;
-    background:white;
-    font-size:21px;
+  position:absolute;
+  top:68px;
+  left:10px;
+  z-index:10;
+  width:48px;
+  height:48px;
+  border:3px solid #17344c;
+  border-radius:14px;
+  background:#fff;
+  font-size:20px;
 }
 
 .controls{
-    position:absolute;
-    bottom:12px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:15;
-    display:flex;
-    gap:6px;
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  display:flex;
+  gap:6px;
 }
 
 .controls button{
-    width:56px;
-    height:47px;
-    border:3px solid white;
-    border-radius:14px;
-    background:#09233bcc;
-    color:white;
-    font-size:21px;
-    font-weight:900;
+  width:58px;
+  height:48px;
+  border:3px solid #fff;
+  border-radius:14px;
+  background:#09263dcc;
+  color:white;
+  font-size:22px;
+  font-weight:900;
 }
 
 /* HOME */
 
 #home{
-    position:absolute;
-    inset:0;
-    z-index:30;
-    overflow:auto;
-    background:linear-gradient(
-        #20adf2 0%,
-        #d7f7ff 44%,
-        #315c72 100%
-    );
+  position:absolute;
+  inset:0;
+  z-index:20;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(#18a9ed,#d9f8ff 45%,#315b70);
 }
 
-.homeCard{
-    width:min(430px,95vw);
-    min-height:100%;
-    margin:auto;
-    padding:18px 12px 30px;
-    text-align:center;
+.home{
+  width:min(430px,95vw);
+  padding:18px;
+  text-align:center;
 }
 
 .logo{
-    margin-top:20px;
-    font-size:58px;
-    line-height:.78;
-    font-weight:1000;
-    font-style:italic;
-    letter-spacing:-5px;
-    color:#ffc800;
-    text-shadow:
-        4px 5px #162d46,
-        -2px -2px white;
+  font-size:58px;
+  line-height:.78;
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:-5px;
+  color:#ffd21b;
+  text-shadow:4px 5px #152c44,-2px -2px #fff;
 }
 
 .logo span{
-    color:#06c8ff;
+  color:#08c8ff;
 }
 
 .tag{
-    display:inline-block;
-    margin:16px 0;
-    padding:8px 14px;
-    border-radius:12px;
-    background:#f3af10;
-    border:3px solid #714000;
-    color:#172a40;
-    font-size:13px;
-    font-weight:900;
+  display:inline-block;
+  margin:16px 0;
+  padding:8px 14px;
+  border:3px solid #744500;
+  border-radius:12px;
+  background:#f5b21a;
+  color:#172a3d;
+  font-weight:900;
 }
 
 .play{
-    display:block;
-    width:82%;
-    margin:10px auto 18px;
-    padding:12px;
-    border:5px solid white;
-    border-radius:40px;
-    background:linear-gradient(#fff02b,#ff8d00);
-    color:#172a40;
-    font-size:34px;
-    font-weight:1000;
-    box-shadow:0 7px 0 #884300;
+  display:block;
+  width:82%;
+  margin:10px auto 18px;
+  padding:13px;
+  border:5px solid #fff;
+  border-radius:40px;
+  background:linear-gradient(#fff32d,#ff8b00);
+  color:#17283b;
+  font-size:34px;
+  font-weight:1000;
+  box-shadow:0 7px #884200;
 }
-
-.characterTitle{
-    color:white;
-    font-size:15px;
-    font-weight:1000;
-    margin-bottom:9px;
-}
-
-.characters{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-}
-
-.character{
-    border:3px solid #45677e;
-    border-radius:14px;
-    background:#0d2c48;
-    color:white;
-    padding:5px 2px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.character.selected{
-    border-color:#62ff58;
-    box-shadow:0 0 15px #62ff5888;
-}
-
-.characterImage{
-    height:72px;
-    border-radius:9px;
-    background:linear-gradient(#8edfff,#f2fdff);
-    position:relative;
-    overflow:hidden;
-}
-
-.head{
-    position:absolute;
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    background:#ffd0a8;
-    left:50%;
-    top:8px;
-    transform:translateX(-50%);
-}
-
-.hair{
-    position:absolute;
-    width:44px;
-    height:27px;
-    border-radius:50% 50% 35% 35%;
-    background:#91502d;
-    left:50%;
-    top:4px;
-    transform:translateX(-50%);
-}
-
-.body{
-    position:absolute;
-    width:45px;
-    height:38px;
-    border-radius:18px 18px 5px 5px;
-    background:#172839;
-    left:50%;
-    bottom:-5px;
-    transform:translateX(-50%);
-}
-
-.character.blue .body{
-    background:#149fe1;
-}
-
-.character.red .body{
-    background:#df3c3c;
-}
-
-.character.cat .head{
-    background:white;
-}
-
-.character.cat .hair{
-    background:#6b9abc;
-}
-
-.character small{
-    color:#ffd21a;
-    font-size:9px;
-}
-
-.homeInfo{
-    margin-top:15px;
-    padding:11px;
-    border:2px solid #3cc0ff;
-    border-radius:14px;
-    background:#09233bea;
-    color:white;
-    font-size:12px;
-    font-weight:900;
-}
-
-/* GAME OVER */
 
 #gameOver{
-    position:absolute;
-    inset:0;
-    z-index:40;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:#000b;
+  position:absolute;
+  inset:0;
+  z-index:30;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:#000b;
 }
 
-.overCard{
-    width:min(390px,92vw);
-    padding:23px;
-    border-radius:24px;
-    background:#092641;
-    border:4px solid #3bc5ff;
-    color:white;
-    text-align:center;
+.over{
+  width:min(390px,92vw);
+  padding:24px;
+  background:#092640;
+  border:4px solid #3bc5ff;
+  border-radius:24px;
+  color:#fff;
+  text-align:center;
 }
 
-.overCard h2{
-    color:#ffd21a;
-    font-size:38px;
-    margin-bottom:8px;
+.over h2{
+  color:#ffd21b;
+  font-size:40px;
+  margin-bottom:10px;
 }
 
 .restart{
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    border:4px solid white;
-    border-radius:17px;
-    background:linear-gradient(#fff02b,#ff9000);
-    color:#17283a;
-    font-size:22px;
-    font-weight:1000;
+  width:100%;
+  padding:13px;
+  margin-top:15px;
+  border:4px solid #fff;
+  border-radius:18px;
+  background:linear-gradient(#fff32d,#ff8b00);
+  font-size:22px;
+  font-weight:1000;
+}
+
+/* CHARACTER SELECT */
+
+.characterTitle{
+  color:#fff;
+  font-weight:1000;
+  margin-bottom:9px;
+}
+
+.characters{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+
+.character{
+  border:3px solid #476a82;
+  border-radius:13px;
+  background:#0d2d49;
+  color:#fff;
+  padding:5px 2px;
+  font-weight:900;
+}
+
+.character.selected{
+  border-color:#63ff54;
+  box-shadow:0 0 15px #63ff5466;
+}
+
+.characterPreview{
+  height:74px;
+  position:relative;
+  overflow:hidden;
+  border-radius:9px;
+  background:linear-gradient(#8edfff,#effcff);
+}
+
+.pHead{
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#ffd0aa;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  border:2px solid #b16e4c;
+}
+
+.pHair{
+  position:absolute;
+  width:42px;
+  height:25px;
+  border-radius:50% 50% 30% 30%;
+  top:4px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#56351f;
+}
+
+.pBody{
+  position:absolute;
+  width:42px;
+  height:38px;
+  bottom:-5px;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:15px 15px 5px 5px;
+  background:#192b3c;
+}
+
+.character small{
+  color:#ffd21b;
+  font-size:9px;
+}
+
+.info{
+  margin-top:14px;
+  padding:9px;
+  background:#09263de8;
+  border:2px solid #39c1ff;
+  border-radius:13px;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
 }
 </style>
 </head>
@@ -310,52 +281,50 @@ canvas{
 <canvas id="canvas"></canvas>
 
 <div class="hud">
-    <div class="hudBox">⭐ <span id="score">00000</span></div>
-    <div class="hudBox">🪙 <span id="coins">0</span></div>
-    <div class="hudBox">🏃 <span id="distance">0</span>m</div>
+  <div>⭐ <span id="score">00000</span></div>
+  <div>🪙 <span id="coins">0</span></div>
+  <div>🏃 <span id="distance">0</span>m</div>
 </div>
 
 <button class="pause" onclick="togglePause()">⏸</button>
 
 <div class="controls">
-    <button onclick="moveLane(-1)">◀</button>
-    <button onclick="jump()">⬆</button>
-    <button onclick="slide()">⬇</button>
-    <button onclick="moveLane(1)">▶</button>
+  <button onclick="laneMove(-1)">◀</button>
+  <button onclick="playerJump()">⬆</button>
+  <button onclick="playerSlide()">⬇</button>
+  <button onclick="laneMove(1)">▶</button>
 </div>
 
 <!-- HOME -->
 
 <div id="home">
 
-<div class="homeCard">
+  <div class="home">
 
-<div class="logo">
-    ABEY<br>
-    <span>BHAAG!</span>
-</div>
+    <div class="logo">
+      ABEY<br>
+      <span>BHAAG!</span>
+    </div>
 
-<div class="tag">
-    Pakray gaye to Game Over! 🎮
-</div>
+    <div class="tag">
+      Pakray gaye to Game Over! 🎮
+    </div>
 
-<button class="play" onclick="startGame()">
-    ▶ PLAY
-</button>
+    <button class="play" onclick="startGame()">
+      ▶ PLAY
+    </button>
 
-<div class="characterTitle">
-    SELECT CHARACTER
-</div>
+    <div class="characterTitle">
+      SELECT CHARACTER
+    </div>
 
-<div class="characters" id="characters"></div>
+    <div class="characters" id="characters"></div>
 
-<div class="homeInfo">
-    🛣️ Endless Runner &nbsp; • &nbsp;
-    🚂 Trains &nbsp; • &nbsp;
-    🪙 Coins
-</div>
+    <div class="info">
+      3 LANE RUNNER • TRAINS • COINS • OBSTACLES
+    </div>
 
-</div>
+  </div>
 
 </div>
 
@@ -363,25 +332,25 @@ canvas{
 
 <div id="gameOver">
 
-<div class="overCard">
+  <div class="over">
 
-<h2>GAME OVER!</h2>
+    <h2>GAME OVER!</h2>
 
-<p>Obstacle se takra gaye 😱</p>
+    <p>Obstacle se takra gaye 😱</p>
 
-<p style="margin-top:10px;">
-⭐ Score: <b id="finalScore">0</b>
-</p>
+    <p style="margin-top:10px">
+      ⭐ Score: <b id="finalScore">0</b>
+    </p>
 
-<p style="margin-top:5px;">
-🪙 Coins: <b id="finalCoins">0</b>
-</p>
+    <p style="margin-top:5px">
+      🪙 Coins: <b id="finalCoins">0</b>
+    </p>
 
-<button class="restart" onclick="startGame()">
-    🔄 RUN AGAIN
-</button>
+    <button class="restart" onclick="startGame()">
+      🔄 RUN AGAIN
+    </button>
 
-</div>
+  </div>
 
 </div>
 
@@ -389,1644 +358,2028 @@ canvas{
 
 <script>
 
-/* =========================
-   BASIC GAME SETUP
-========================= */
+/* =========================================
+   CANVAS
+========================================= */
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
 
-let W = 0;
-let H = 0;
-let DPR = 1;
+let W=0;
+let H=0;
+let DPR=1;
 
 function resize(){
 
-    W = canvas.clientWidth;
-    H = canvas.clientHeight;
+  W=canvas.clientWidth;
+  H=canvas.clientHeight;
 
-    DPR = Math.min(window.devicePixelRatio || 1,2);
+  DPR=Math.min(devicePixelRatio||1,2);
 
-    canvas.width = W * DPR;
-    canvas.height = H * DPR;
+  canvas.width=W*DPR;
+  canvas.height=H*DPR;
 
-    ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
 }
 
 window.addEventListener("resize",resize);
 resize();
 
 
-/* =========================
+/* =========================================
    CHARACTERS
-========================= */
+========================================= */
 
-const characterList = [
-    {
-        name:"Adrien",
-        price:"FREE",
-        cls:""
-    },
-    {
-        name:"MrBeast",
-        price:"🪙 1000",
-        cls:"blue"
-    },
-    {
-        name:"Doraemon",
-        price:"🪙 500",
-        cls:"cat"
-    },
-    {
-        name:"Ronaldo",
-        price:"🪙 2000",
-        cls:"red"
-    }
+const characters=[
+  {name:"Adrien",price:"FREE",hair:"#263a55",shirt:"#173f73"},
+  {name:"MrBeast",price:"🪙 1000",hair:"#51311e",shirt:"#168dd0"},
+  {name:"Doraemon",price:"🪙 500",hair:"#5c93b5",shirt:"#188bc8"},
+  {name:"Ronaldo",price:"🪙 2000",hair:"#20252d",shirt:"#d83b3b"}
 ];
 
-let selectedCharacter = "Adrien";
+let selected="Adrien";
 
 function renderCharacters(){
 
-    const container =
-        document.getElementById("characters");
+  const box=document.getElementById("characters");
 
-    container.innerHTML = "";
+  box.innerHTML="";
 
-    characterList.forEach(character => {
+  characters.forEach(c=>{
 
-        const button =
-            document.createElement("button");
+    const b=document.createElement("button");
 
-        button.className =
-            "character " +
-            character.cls +
-            (selectedCharacter === character.name
-                ? " selected"
-                : "");
+    b.className=
+      "character"+
+      (selected===c.name?" selected":"");
 
-        button.innerHTML = `
-            <div class="characterImage">
-                <i class="head"></i>
-                <i class="hair"></i>
-                <i class="body"></i>
-            </div>
+    b.innerHTML=`
+      <div class="characterPreview">
+        <div class="pHair" style="background:${c.hair}"></div>
+        <div class="pHead"></div>
+        <div class="pBody" style="background:${c.shirt}"></div>
+      </div>
+      <div>${c.name}</div>
+      <small>${c.price}</small>
+    `;
 
-            <div>${character.name}</div>
+    b.onclick=()=>{
+      selected=c.name;
+      renderCharacters();
+    };
 
-            <small>${character.price}</small>
-        `;
-
-        button.onclick = () => {
-
-            selectedCharacter =
-                character.name;
-
-            renderCharacters();
-        };
-
-        container.appendChild(button);
-
-    });
+    box.appendChild(b);
+  });
 }
 
 renderCharacters();
 
 
-/* =========================
-   GAME VARIABLES
-========================= */
+/* =========================================
+   GAME STATE
+========================================= */
 
-let running = false;
-let paused = false;
+let running=false;
+let paused=false;
 
-let lastTime = 0;
-let animationFrame = 0;
+let last=0;
+let raf=0;
 
-let score = 0;
-let coins = 0;
-let distance = 0;
+let score=0;
+let coins=0;
+let distance=0;
 
-let speed = 0.008;
+let speed=.0075;
+let world=0;
 
-let worldOffset = 0;
+let spawnTimer=0;
 
-let spawnTimer = 0;
+let objects=[];
 
-let objects = [];
+let currentLane=1;
+let targetLane=1;
 
-let currentLane = 1;
-let targetLane = 1;
+let action="";
+let actionUntil=0;
 
-let action = "";
-let actionEnd = 0;
+let runTime=0;
 
 
-/* =========================
-   START GAME
-========================= */
+/* =========================================
+   START
+========================================= */
 
 function startGame(){
 
-    document.getElementById("home")
-        .style.display = "none";
+  document.getElementById("home").style.display="none";
+  document.getElementById("gameOver").style.display="none";
 
-    document.getElementById("gameOver")
-        .style.display = "none";
+  running=true;
+  paused=false;
 
-    running = true;
-    paused = false;
+  score=0;
+  coins=0;
+  distance=0;
 
-    score = 0;
-    coins = 0;
-    distance = 0;
+  speed=.0075;
+  world=0;
+  spawnTimer=0;
 
-    speed = 0.008;
-    worldOffset = 0;
+  objects=[];
 
-    spawnTimer = 0;
+  currentLane=1;
+  targetLane=1;
 
-    objects = [];
+  action="";
+  runTime=0;
 
-    currentLane = 1;
-    targetLane = 1;
+  last=performance.now();
 
-    action = "";
+  cancelAnimationFrame(raf);
 
-    lastTime = performance.now();
-
-    cancelAnimationFrame(animationFrame);
-
-    animationFrame =
-        requestAnimationFrame(gameLoop);
+  raf=requestAnimationFrame(loop);
 }
 
 
-/* =========================
+/* =========================================
    PAUSE
-========================= */
+========================================= */
 
 function togglePause(){
 
-    if(!running) return;
+  if(!running)return;
 
-    paused = !paused;
+  paused=!paused;
 
-    if(!paused){
+  if(!paused){
 
-        lastTime = performance.now();
+    last=performance.now();
 
-        animationFrame =
-            requestAnimationFrame(gameLoop);
-    }
+    raf=requestAnimationFrame(loop);
+  }
 }
 
 
-/* =========================
+/* =========================================
    CONTROLS
-========================= */
+========================================= */
 
-function moveLane(direction){
+function laneMove(d){
 
-    if(!running || paused) return;
+  if(!running||paused)return;
 
-    targetLane += direction;
+  targetLane+=d;
 
-    if(targetLane < 0)
-        targetLane = 0;
+  targetLane=Math.max(
+    0,
+    Math.min(2,targetLane)
+  );
+}
 
-    if(targetLane > 2)
-        targetLane = 2;
+function playerJump(){
+
+  if(!running||paused)return;
+
+  if(action)return;
+
+  action="jump";
+  actionUntil=performance.now()+720;
+}
+
+function playerSlide(){
+
+  if(!running||paused)return;
+
+  if(action)return;
+
+  action="slide";
+  actionUntil=performance.now()+650;
 }
 
 
-function jump(){
-
-    if(!running || paused) return;
-
-    if(action !== "") return;
-
-    action = "jump";
-
-    actionEnd =
-        performance.now() + 650;
-}
-
-
-function slide(){
-
-    if(!running || paused) return;
-
-    if(action !== "") return;
-
-    action = "slide";
-
-    actionEnd =
-        performance.now() + 650;
-}
-
-
-/* =========================
+/* =========================================
    KEYBOARD
-========================= */
+========================================= */
 
-window.addEventListener("keydown",event=>{
+window.addEventListener("keydown",e=>{
 
-    if(event.key === "ArrowLeft")
-        moveLane(-1);
-
-    if(event.key === "ArrowRight")
-        moveLane(1);
-
-    if(event.key === "ArrowUp")
-        jump();
-
-    if(event.key === "ArrowDown")
-        slide();
+  if(e.key==="ArrowLeft")laneMove(-1);
+  if(e.key==="ArrowRight")laneMove(1);
+  if(e.key==="ArrowUp")playerJump();
+  if(e.key==="ArrowDown")playerSlide();
 
 });
 
 
-/* =========================
-   MOBILE SWIPE
-========================= */
+/* =========================================
+   SWIPE
+========================================= */
 
-let touchStartX = 0;
-let touchStartY = 0;
+let sx=0;
+let sy=0;
 
-canvas.addEventListener(
-    "touchstart",
-    event => {
+canvas.addEventListener("touchstart",e=>{
 
-        const touch =
-            event.changedTouches[0];
+  const t=e.changedTouches[0];
 
-        touchStartX =
-            touch.clientX;
+  sx=t.clientX;
+  sy=t.clientY;
 
-        touchStartY =
-            touch.clientY;
-
-    },
-    {passive:true}
-);
+},{passive:true});
 
 
-canvas.addEventListener(
-    "touchend",
-    event => {
+canvas.addEventListener("touchend",e=>{
 
-        const touch =
-            event.changedTouches[0];
+  const t=e.changedTouches[0];
 
-        const dx =
-            touch.clientX - touchStartX;
+  const dx=t.clientX-sx;
+  const dy=t.clientY-sy;
 
-        const dy =
-            touch.clientY - touchStartY;
+  if(Math.max(Math.abs(dx),Math.abs(dy))<25)
+    return;
 
-        if(Math.max(
-            Math.abs(dx),
-            Math.abs(dy)
-        ) < 25) return;
+  if(Math.abs(dx)>Math.abs(dy)){
 
-        if(Math.abs(dx) >
-           Math.abs(dy)){
+    laneMove(dx>0?1:-1);
 
-            moveLane(dx > 0 ? 1 : -1);
+  }else{
 
-        }else{
+    if(dy<0)
+      playerJump();
+    else
+      playerSlide();
 
-            if(dy < 0)
-                jump();
-            else
-                slide();
-        }
+  }
 
-    },
-    {passive:true}
-);
+},{passive:true});
 
 
-/* =========================
+/* =========================================
    GAME LOOP
-========================= */
+========================================= */
 
-function gameLoop(now){
+function loop(now){
 
-    if(!running) return;
+  if(!running)return;
 
-    const delta =
-        Math.min(
-            2,
-            (now-lastTime)/16.67
-        );
+  const dt=Math.min(
+    2,
+    (now-last)/16.67
+  );
 
-    lastTime = now;
+  last=now;
 
-    if(!paused){
+  if(!paused)
+    update(dt,now);
 
-        update(delta,now);
-    }
+  draw();
 
-    draw();
-
-    animationFrame =
-        requestAnimationFrame(gameLoop);
+  raf=requestAnimationFrame(loop);
 }
 
 
-/* =========================
+/* =========================================
    UPDATE
-========================= */
+========================================= */
 
-function update(delta,now){
+function update(dt,now){
 
-    /* CONTINUOUS WORLD MOVEMENT */
+  runTime+=dt;
 
-    worldOffset +=
-        speed * delta * 100;
+  /* ROAD SPEED */
 
-    speed =
-        Math.min(
-            0.019,
-            speed + 0.000002 * delta
-        );
+  world+=speed*dt*100;
 
-
-    /* CHARACTER LANE SMOOTH MOVEMENT */
-
-    currentLane +=
-        (targetLane-currentLane)
-        * 0.18
-        * delta;
+  speed=Math.min(
+    .018,
+    speed+.0000018*dt
+  );
 
 
-    /* ACTION TIMER */
+  /* PLAYER LANE */
 
-    if(action &&
-       now > actionEnd){
-
-        action = "";
-    }
+  currentLane+=
+    (targetLane-currentLane)
+    *.18*dt;
 
 
-    /* SCORE */
+  /* ACTION */
 
-    score +=
-        Math.floor(1.5 * delta);
-
-    distance +=
-        Math.floor(
-            speed * 12 * delta
-        );
+  if(action && now>actionUntil)
+    action="";
 
 
-    /* SPAWN */
+  /* SCORE */
 
-    spawnTimer -= delta;
+  score+=Math.floor(1.5*dt);
 
-    if(spawnTimer <= 0){
-
-        spawnObject();
-
-        spawnTimer =
-            42 + Math.random()*30;
-    }
+  distance+=Math.floor(
+    speed*13*dt
+  );
 
 
-    /* MOVE OBJECTS TOWARD PLAYER */
+  /* OBJECT SPAWN */
 
-    objects.forEach(object => {
+  spawnTimer-=dt;
 
-        object.z +=
-            speed * delta;
+  if(spawnTimer<=0){
 
-    });
+    spawnObject();
 
-
-    /* COLLISIONS */
-
-    for(let i=objects.length-1;i>=0;i--){
-
-        const object =
-            objects[i];
-
-        if(
-            object.z > 0.82 &&
-            object.z < 1.02 &&
-            Math.abs(
-                object.lane-currentLane
-            ) < 0.32 &&
-            !object.hit
-        ){
-
-            object.hit = true;
+    spawnTimer=
+      38+
+      Math.random()*30;
+  }
 
 
-            /* COIN */
+  /* MOVE EVERYTHING */
 
-            if(object.type === "coin"){
-
-                coins++;
-
-                objects.splice(i,1);
-
-                continue;
-            }
+  objects.forEach(o=>{
+    o.z+=speed*dt;
+  });
 
 
-            /* JUMP OVER BARRIER */
+  /* COLLISION */
 
-            const safeBarrier =
-                object.type === "barrier" &&
-                action === "jump";
+  for(
+    let i=objects.length-1;
+    i>=0;
+    i--
+  ){
+
+    const o=objects[i];
+
+    if(
+      o.z>.82 &&
+      o.z<1.02 &&
+      Math.abs(o.lane-currentLane)<.31 &&
+      !o.checked
+    ){
+
+      o.checked=true;
+
+      if(o.type==="coin"){
+
+        coins++;
+
+        objects.splice(i,1);
+
+        continue;
+      }
 
 
-            /* SLIDE UNDER TRAIN */
+      let safe=false;
 
-            const safeTrain =
-                object.type === "train" &&
-                action === "slide";
+      if(
+        o.type==="barrier" &&
+        action==="jump"
+      ){
+        safe=true;
+      }
+
+      if(
+        o.type==="train" &&
+        action==="slide"
+      ){
+        safe=true;
+      }
 
 
-            if(!safeBarrier &&
-               !safeTrain){
+      if(!safe){
 
-                gameOver();
+        gameOver();
 
-                return;
-            }
-        }
-
-
-        if(object.z > 1.12){
-
-            objects.splice(i,1);
-        }
+        return;
+      }
 
     }
 
 
-    document.getElementById("score")
-        .textContent =
-        String(score).padStart(5,"0");
+    if(o.z>1.12){
 
-    document.getElementById("coins")
-        .textContent = coins;
+      objects.splice(i,1);
+    }
 
-    document.getElementById("distance")
-        .textContent = distance;
+  }
+
+
+  document.getElementById("score")
+    .textContent=
+    String(score).padStart(5,"0");
+
+  document.getElementById("coins")
+    .textContent=coins;
+
+  document.getElementById("distance")
+    .textContent=distance;
 }
 
 
-/* =========================
-   SPAWN OBJECTS
-========================= */
+/* =========================================
+   SPAWN
+========================================= */
 
 function spawnObject(){
 
-    const lane =
-        Math.floor(
-            Math.random()*3
-        );
+  const lane=
+    Math.floor(Math.random()*3);
 
-    const random =
-        Math.random();
+  const r=Math.random();
 
-    let type;
+  let type;
+
+  if(r<.48)
+    type="coin";
+  else if(r<.72)
+    type="barrier";
+  else
+    type="train";
 
 
-    if(random < 0.45){
+  objects.push({
+    type,
+    lane,
+    z:-.08,
+    checked:false,
+    spin:Math.random()*10
+  });
 
-        type = "coin";
 
-    }else if(random < 0.68){
+  /* COINS NEAR OBSTACLES */
 
-        type = "barrier";
-
-    }else{
-
-        type = "train";
-    }
-
+  if(type==="barrier"){
 
     objects.push({
-
-        type:type,
-
-        lane:lane,
-
-        z:-0.08,
-
-        hit:false
+      type:"coin",
+      lane:(lane+1)%3,
+      z:-.27,
+      checked:false,
+      spin:0
     });
 
-
-    /* EXTRA COIN PATH */
-
-    if(type === "barrier"){
-
-        objects.push({
-
-            type:"coin",
-
-            lane:
-                (lane+1)%3,
-
-            z:-0.28,
-
-            hit:false
-        });
-    }
+  }
 
 
-    if(type === "train"){
+  if(type==="train"){
 
-        objects.push({
+    objects.push({
+      type:"coin",
+      lane:(lane+2)%3,
+      z:-.24,
+      checked:false,
+      spin:0
+    });
 
-            type:"coin",
+  }
 
-            lane:
-                (lane+2)%3,
-
-            z:-0.25,
-
-            hit:false
-        });
-    }
 }
 
 
-/* =========================
+/* =========================================
    GAME OVER
-========================= */
+========================================= */
 
 function gameOver(){
 
-    running = false;
+  running=false;
 
-    cancelAnimationFrame(
-        animationFrame
-    );
+  document.getElementById("finalScore")
+    .textContent=score;
 
-    document.getElementById(
-        "finalScore"
-    ).textContent = score;
+  document.getElementById("finalCoins")
+    .textContent=coins;
 
-    document.getElementById(
-        "finalCoins"
-    ).textContent = coins;
-
-    document.getElementById(
-        "gameOver"
-    ).style.display = "flex";
+  document.getElementById("gameOver")
+    .style.display="flex";
 }
 
 
-/* =========================
-   ROAD PROJECTION
-========================= */
+/* =========================================
+   PERSPECTIVE
+========================================= */
 
 function roadY(z){
 
-    return (
-        H*0.40 +
-        (H*0.92-H*0.40)*z
-    );
+  return H*.39+
+    (H*.96-H*.39)*z;
+}
+
+function roadWidth(z){
+
+  return W*.15+
+    (W*.75-W*.15)*z;
+}
+
+function laneX(l,z){
+
+  return W/2+
+    (l-1)*
+    roadWidth(z)*
+    .62;
 }
 
 
-function roadHalf(z){
-
-    return (
-        W*0.16 +
-        (W*0.70-W*0.16)*z
-    );
-}
-
-
-function laneX(lane,z){
-
-    return (
-        W/2 +
-        (lane-1) *
-        roadHalf(z) *
-        0.62
-    );
-}
-
-
-/* =========================
-   DRAW EVERYTHING
-========================= */
+/* =========================================
+   DRAW
+========================================= */
 
 function draw(){
 
-    ctx.clearRect(
-        0,0,W,H
-    );
+  ctx.clearRect(
+    0,0,W,H
+  );
 
-    drawSky();
+  drawSky();
+  drawCity();
+  drawRoad();
+  drawStreetObjects();
+  drawGameObjects();
+  drawPlayer();
+  drawCrowd();
 
-    drawBuildings();
-
-    drawRoad();
-
-    drawSideDetails();
-
-    drawObjects();
-
-    drawPlayer();
-
-    drawCrowd();
 }
 
 
-/* =========================
+/* =========================================
    SKY
-========================= */
+========================================= */
 
 function drawSky(){
 
-    const gradient =
-        ctx.createLinearGradient(
-            0,0,0,H*.5
-        );
-
-    gradient.addColorStop(
-        0,
-        "#19aaf0"
+  const g=
+    ctx.createLinearGradient(
+      0,0,0,H*.5
     );
 
-    gradient.addColorStop(
-        1,
-        "#d9f8ff"
-    );
+  g.addColorStop(
+    0,
+    "#16aaf0"
+  );
 
-    ctx.fillStyle =
-        gradient;
+  g.addColorStop(
+    1,
+    "#dcf8ff"
+  );
+
+  ctx.fillStyle=g;
+
+  ctx.fillRect(
+    0,0,W,H*.55
+  );
+
+
+  /* SUN */
+
+  ctx.fillStyle="#ffe66b";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    W*.82,
+    H*.11,
+    28,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* CLOUDS */
+
+  drawCloud(
+    W*.18,
+    H*.15,
+    1
+  );
+
+  drawCloud(
+    W*.56,
+    H*.22,
+    .75
+  );
+
+}
+
+function drawCloud(x,y,s){
+
+  ctx.fillStyle="#ffffffaa";
+
+  ctx.beginPath();
+
+  ctx.arc(x,y,18*s,0,Math.PI*2);
+  ctx.arc(x+20*s,y-7*s,24*s,0,Math.PI*2);
+  ctx.arc(x+44*s,y,18*s,0,Math.PI*2);
+
+  ctx.fill();
+}
+
+
+/* =========================================
+   CITY
+========================================= */
+
+function drawCity(){
+
+  const shift1=
+    (world*.045)%W;
+
+  const shift2=
+    (world*.025)%W;
+
+
+  /* FAR BUILDINGS */
+
+  for(let i=-2;i<12;i++){
+
+    const x=i*80-shift2;
+
+    const h=
+      55+
+      ((i*31)%80+80)%80;
+
+    ctx.fillStyle="#719cac";
 
     ctx.fillRect(
-        0,0,W,H*.55
+      x,
+      H*.43-h,
+      72,
+      h
     );
 
+    ctx.fillStyle="#d8f3fa";
 
-    ctx.fillStyle =
-        "#ffe36a";
+    for(let r=0;r<4;r++){
 
-    ctx.beginPath();
+      for(let c=0;c<2;c++){
 
-    ctx.arc(
-        W*.82,
-        H*.10,
-        27,
-        0,
-        Math.PI*2
-    );
+        ctx.fillRect(
+          x+13+c*28,
+          H*.43-h+14+r*22,
+          10,
+          7
+        );
 
-    ctx.fill();
-}
-
-
-/* =========================
-   MOVING CITY
-========================= */
-
-function drawBuildings(){
-
-    for(
-        let layer=0;
-        layer<2;
-        layer++
-    ){
-
-        const shift =
-            (
-                worldOffset *
-                (layer===0 ? 0.07 : 0.04)
-            ) % W;
-
-        const spacing = 78;
-
-        for(
-            let i=-2;
-            i<10;
-            i++
-        ){
-
-            const x =
-                i*spacing-shift;
-
-            const height =
-                55 +
-                (
-                    (
-                        i*43
-                    )%105+105
-                )%105 *
-                (layer ? .6 : 1);
-
-            const base =
-                H*.43 -
-                layer*18;
-
-
-            ctx.fillStyle =
-                layer
-                ? "#547b90"
-                : "#719dad";
-
-            ctx.fillRect(
-                x,
-                base-height,
-                spacing-8,
-                height
-            );
-
-
-            ctx.fillStyle =
-                "#d8f1f8";
-
-
-            for(
-                let row=0;
-                row<4;
-                row++
-            ){
-
-                for(
-                    let col=0;
-                    col<2;
-                    col++
-                ){
-
-                    ctx.fillRect(
-                        x+13+col*25,
-                        base-height+13+row*23,
-                        9,
-                        7
-                    );
-
-                }
-            }
-
-        }
-
+      }
     }
+  }
+
+
+  /* NEAR BUILDINGS */
+
+  for(let i=-2;i<10;i++){
+
+    const x=i*105-shift1;
+
+    const h=
+      75+
+      ((i*47)%100+100)%100;
+
+    ctx.fillStyle="#547b90";
+
+    ctx.fillRect(
+      x,
+      H*.44-h,
+      94,
+      h
+    );
+
+    ctx.fillStyle="#cfeaf0";
+
+    for(let r=0;r<5;r++){
+
+      for(let c=0;c<2;c++){
+
+        ctx.fillRect(
+          x+17+c*34,
+          H*.44-h+16+r*25,
+          12,
+          9
+        );
+
+      }
+    }
+  }
 
 }
 
 
-/* =========================
+/* =========================================
    ROAD
-========================= */
+========================================= */
 
 function drawRoad(){
 
-    const horizon =
-        H*.40;
+  const hy=H*.39;
 
 
-    /* LEFT SIDE */
+  /* GROUND */
 
-    ctx.fillStyle =
-        "#a6a39d";
+  ctx.fillStyle="#999991";
 
-    ctx.beginPath();
-
-    ctx.moveTo(
-        0,horizon
-    );
-
-    ctx.lineTo(
-        W*.27,horizon
-    );
-
-    ctx.lineTo(
-        0,H
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
+  ctx.fillRect(
+    0,
+    hy,
+    W,
+    H-hy
+  );
 
 
-    /* RIGHT SIDE */
+  /* ROAD */
 
-    ctx.beginPath();
+  ctx.fillStyle="#41484e";
 
-    ctx.moveTo(
-        W,horizon
-    );
+  ctx.beginPath();
 
-    ctx.lineTo(
-        W*.73,horizon
-    );
+  ctx.moveTo(
+    W*.27,
+    hy
+  );
 
-    ctx.lineTo(
-        W,H
-    );
+  ctx.lineTo(
+    W*.73,
+    hy
+  );
 
-    ctx.closePath();
+  ctx.lineTo(
+    W*1.08,
+    H
+  );
 
-    ctx.fill();
+  ctx.lineTo(
+    -W*.08,
+    H
+  );
 
+  ctx.closePath();
 
-    /* ROAD */
-
-    ctx.fillStyle =
-        "#41484e";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        W*.27,
-        horizon
-    );
-
-    ctx.lineTo(
-        W*.73,
-        horizon
-    );
-
-    ctx.lineTo(
-        W*1.05,
-        H
-    );
-
-    ctx.lineTo(
-        -W*.05,
-        H
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
+  ctx.fill();
 
 
-    /* LANE MARKINGS */
+  /* ROAD EDGE */
 
-    for(
-        const laneDivider of [
-            -.16,
-            .16
-        ]
-    ){
+  ctx.strokeStyle="#e9e9e9";
+  ctx.lineWidth=5;
 
-        for(
-            let i=0;
-            i<13;
-            i++
-        ){
+  ctx.beginPath();
 
-            const z =
-                (
-                    i*.105 +
-                    worldOffset*.002
-                ) % 1;
+  ctx.moveTo(
+    W*.27,
+    hy
+  );
 
-            const y =
-                roadY(z);
+  ctx.lineTo(
+    -W*.08,
+    H
+  );
 
-            const x =
-                W/2 +
-                laneDivider *
-                2 *
-                roadHalf(z);
+  ctx.moveTo(
+    W*.73,
+    hy
+  );
+
+  ctx.lineTo(
+    W*1.08,
+    H
+  );
+
+  ctx.stroke();
 
 
-            ctx.fillStyle =
-                "#ffffff";
+  /* MOVING LANE LINES */
 
-            ctx.fillRect(
-                x-2,
-                y,
-                4,
-                8+z*25
-            );
+  const dividerPositions=[
+    -.16,
+    .16
+  ];
 
-        }
+  dividerPositions.forEach(pos=>{
+
+    for(let i=0;i<15;i++){
+
+      const z=
+        (i*.09+
+        world*.0018)%1;
+
+      const y=
+        roadY(z);
+
+      const x=
+        W/2+
+        pos*2*
+        roadWidth(z);
+
+      const len=
+        7+z*30;
+
+      ctx.fillStyle="#fff";
+
+      ctx.fillRect(
+        x-2,
+        y,
+        4,
+        len
+      );
 
     }
 
-}
+  });
 
 
-/* =========================
-   MOVING SIDE CURBS
-========================= */
+  /* CENTER ROAD TEXTURE */
 
-function drawSideDetails(){
+  for(let i=0;i<25;i++){
 
-    const horizon =
-        H*.40;
+    const z=
+      (i*.055+
+      world*.0008)%1;
 
-    const offset =
-        (
-            worldOffset*.30
-        ) % 45;
+    const y=
+      roadY(z);
 
+    const w=
+      1+z*5;
 
-    for(
-        let i=-1;
-        i<22;
-        i++
-    ){
-
-        const y =
-            horizon +
-            i *
-            (H-horizon)/18 +
-            offset;
-
-        if(y > H)
-            continue;
-
-
-        const z =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    (y-horizon)/
-                    (H-horizon)
-                )
-            );
-
-
-        const width =
-            18+z*20;
-
-
-        ctx.fillStyle =
-            i%2
-            ? "#f1f1f1"
-            : "#e53c37";
-
-
-        ctx.fillRect(
-            2,
-            y,
-            width,
-            10+z*5
-        );
-
-
-        ctx.fillRect(
-            W-width-2,
-            y,
-            width,
-            10+z*5
-        );
-
-    }
-
-
-    /* MOVING TREES */
-
-    const treeOffset =
-        (worldOffset*.16)%110;
-
-
-    for(
-        let i=-2;
-        i<8;
-        i++
-    ){
-
-        const y =
-            H*.40 +
-            i*85 +
-            treeOffset;
-
-        if(y>H*.85)
-            continue;
-
-        drawTree(
-            30,
-            y,
-            .6
-        );
-
-        drawTree(
-            W-30,
-            y+25,
-            .6
-        );
-    }
-
-}
-
-
-/* =========================
-   TREE
-========================= */
-
-function drawTree(x,y,scale){
-
-    ctx.save();
-
-    ctx.translate(
-        x,y
-    );
-
-    ctx.scale(
-        scale,
-        scale
-    );
-
-    ctx.fillStyle =
-        "#704a2e";
+    ctx.fillStyle="#555c61";
 
     ctx.fillRect(
-        -4,
-        0,
-        8,
-        38
+      W/2-w,
+      y,
+      w*2,
+      2+z*4
     );
 
+  }
 
-    ctx.fillStyle =
-        "#2f914c";
+}
 
 
-    for(
-        let i=0;
-        i<3;
-        i++
-    ){
+/* =========================================
+   SIDE STREET DETAILS
+========================================= */
 
-        ctx.beginPath();
+function drawStreetObjects(){
 
-        ctx.arc(
-            (i-1)*15,
-            -10-i*9,
-            23,
-            0,
-            Math.PI*2
+  const offset=
+    (world*.13)%120;
+
+  for(let i=-2;i<9;i++){
+
+    const y=
+      H*.39+
+      i*105+
+      offset;
+
+    if(y>H*.9)
+      continue;
+
+
+    const z=
+      Math.max(
+        0,
+        Math.min(
+          1,
+          (y-H*.39)/
+          (H*.61)
+        )
+      );
+
+
+    const s=
+      .4+
+      z*.8;
+
+
+    drawLamp(
+      35,
+      y,
+      s
+    );
+
+    drawLamp(
+      W-35,
+      y+25,
+      s
+    );
+
+  }
+
+}
+
+
+function drawLamp(x,y,s){
+
+  ctx.save();
+
+  ctx.translate(x,y);
+
+  ctx.scale(s,s);
+
+  ctx.strokeStyle="#304654";
+  ctx.lineWidth=5;
+
+  ctx.beginPath();
+
+  ctx.moveTo(0,0);
+  ctx.lineTo(0,-95);
+  ctx.lineTo(22,-95);
+
+  ctx.stroke();
+
+
+  ctx.fillStyle="#ffe96b";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    22,
+    -95,
+    7,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+  ctx.restore();
+}
+
+
+/* =========================================
+   GAME OBJECTS
+========================================= */
+
+function drawGameObjects(){
+
+  objects
+    .slice()
+    .sort((a,b)=>a.z-b.z)
+    .forEach(o=>{
+
+      const z=
+        Math.max(
+          0,
+          Math.min(1,o.z)
         );
 
-        ctx.fill();
-    }
+      const x=
+        laneX(
+          o.lane,
+          z
+        );
 
-    ctx.restore();
-}
+      const y=
+        roadY(z);
 
-
-/* =========================
-   OBJECTS
-========================= */
-
-function drawObjects(){
-
-    objects
-        .slice()
-        .sort(
-            (a,b)=>a.z-b.z
-        )
-        .forEach(object=>{
-
-            const z =
-                Math.max(
-                    0,
-                    Math.min(
-                        1,
-                        object.z
-                    )
-                );
-
-            const scale =
-                .32 +
-                z*1.18;
-
-            const x =
-                laneX(
-                    object.lane,
-                    z
-                );
-
-            const y =
-                roadY(z);
+      const scale=
+        .30+
+        z*1.22;
 
 
-            ctx.save();
+      ctx.save();
 
-            ctx.translate(
-                x,
-                y
-            );
+      ctx.translate(
+        x,
+        y
+      );
 
-            ctx.scale(
-                scale,
-                scale
-            );
-
-
-            if(object.type === "coin")
-                drawCoin();
-
-            else if(object.type === "barrier")
-                drawBarrier();
-
-            else
-                drawTrain();
+      ctx.scale(
+        scale,
+        scale
+      );
 
 
-            ctx.restore();
+      if(o.type==="coin")
+        drawCoin(o);
 
-        });
+      else if(o.type==="barrier")
+        drawBarrier();
+
+      else
+        drawTrain();
+
+
+      ctx.restore();
+
+    });
 
 }
 
 
-/* =========================
-   COIN
-========================= */
+/* =========================================
+   3D COIN
+========================================= */
 
-function drawCoin(){
+function drawCoin(o){
 
-    ctx.fillStyle =
-        "#ffd21a";
-
-    ctx.strokeStyle =
-        "#fff1a0";
-
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        0,
-        -8,
-        19,
-        26,
-        0,
-        0,
-        Math.PI*2
+  const spin=
+    Math.sin(
+      (world*.08)+o.spin
     );
 
-    ctx.fill();
-    ctx.stroke();
+  const width=
+    Math.max(
+      4,
+      20*Math.abs(spin)
+    );
 
 
-    ctx.fillStyle =
-        "#9c6000";
+  ctx.fillStyle="#ffc719";
 
-    ctx.font =
-        "bold 20px Arial";
+  ctx.strokeStyle="#fff1a2";
 
-    ctx.textAlign =
-        "center";
+  ctx.lineWidth=3;
+
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    0,
+    -9,
+    width,
+    27,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+  ctx.stroke();
+
+
+  if(width>9){
+
+    ctx.fillStyle="#a86a00";
+
+    ctx.font="bold 19px Arial";
+
+    ctx.textAlign="center";
 
     ctx.fillText(
-        "★",
-        0,
-        -1
+      "★",
+      0,
+      -3
     );
+
+  }
 
 }
 
 
-/* =========================
-   BARRIER
-========================= */
+/* =========================================
+   BETTER BARRIER
+========================================= */
 
 function drawBarrier(){
 
-    ctx.fillStyle =
-        "#eeeeee";
+  /* SHADOW */
+
+  ctx.fillStyle="#0005";
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    0,
+    19,
+    42,
+    8,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* SUPPORTS */
+
+  ctx.fillStyle="#263746";
+
+  ctx.fillRect(
+    -31,
+    -30,
+    7,
+    55
+  );
+
+  ctx.fillRect(
+    24,
+    -30,
+    7,
+    55
+  );
+
+
+  /* BOARD */
+
+  ctx.fillStyle="#f2f2ed";
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -38,
+    -42,
+    76,
+    48,
+    5
+  );
+
+  ctx.fill();
+
+
+  /* RED STRIPES */
+
+  ctx.fillStyle="#e23e37";
+
+  for(let x=-42;x<45;x+=22){
+
+    ctx.save();
+
+    ctx.beginPath();
+
+    ctx.rect(
+      x,
+      -44,
+      14,
+      54
+    );
+
+    ctx.clip();
+
+    ctx.translate(
+      x,
+      -44
+    );
+
+    ctx.rotate(-.55);
 
     ctx.fillRect(
-        -34,
-        -32,
-        68,
-        48
+      0,
+      0,
+      15,
+      70
     );
 
+    ctx.restore();
 
-    ctx.fillStyle =
-        "#e53d37";
-
-
-    for(
-        let x=-34;
-        x<40;
-        x+=22
-    ){
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x,
-            -32
-        );
-
-        ctx.lineTo(
-            x+15,
-            -32
-        );
-
-        ctx.lineTo(
-            x-4,
-            16
-        );
-
-        ctx.lineTo(
-            x-19,
-            16
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-    }
+  }
 
 
-    ctx.strokeStyle =
-        "#263848";
+  ctx.strokeStyle="#293a48";
 
-    ctx.lineWidth = 4;
+  ctx.lineWidth=4;
 
-    ctx.strokeRect(
-        -34,
-        -32,
-        68,
-        48
-    );
+  ctx.strokeRect(
+    -38,
+    -42,
+    76,
+    48
+  );
 
 }
 
 
-/* =========================
-   TRAIN
-========================= */
+/* =========================================
+   BETTER TRAIN
+========================================= */
 
 function drawTrain(){
 
-    /* LARGE SUBWAY-STYLE TRAIN */
+  /* TRAIN SHADOW */
 
-    ctx.fillStyle =
-        "#1581c3";
+  ctx.fillStyle="#0006";
 
-    ctx.fillRect(
-        -35,
-        -82,
-        70,
-        112
+  ctx.beginPath();
+
+  ctx.ellipse(
+    0,
+    31,
+    45,
+    9,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* MAIN BODY */
+
+  const body=
+    ctx.createLinearGradient(
+      -35,
+      -100,
+      35,
+      30
+    );
+
+  body.addColorStop(
+    0,
+    "#31b7ef"
+  );
+
+  body.addColorStop(
+    .5,
+    "#0879ba"
+  );
+
+  body.addColorStop(
+    1,
+    "#064b78"
+  );
+
+  ctx.fillStyle=body;
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -37,
+    -95,
+    74,
+    125,
+    10
+  );
+
+  ctx.fill();
+
+
+  /* ROOF */
+
+  ctx.fillStyle="#17384d";
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -40,
+    -101,
+    80,
+    15,
+    7
+  );
+
+  ctx.fill();
+
+
+  /* FRONT WINDOW */
+
+  ctx.fillStyle="#0a263b";
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -29,
+    -73,
+    58,
+    42,
+    8
+  );
+
+  ctx.fill();
+
+
+  /* WINDOW REFLECTION */
+
+  ctx.fillStyle="#bceefa";
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -22,
+    -66
+  );
+
+  ctx.lineTo(
+    3,
+    -66
+  );
+
+  ctx.lineTo(
+    -5,
+    -36
+  );
+
+  ctx.lineTo(
+    -25,
+    -36
+  );
+
+  ctx.closePath();
+
+  ctx.fill();
+
+
+  ctx.fillStyle="#8ed8ee";
+
+  ctx.fillRect(
+    6,
+    -64,
+    17,
+    25
+  );
+
+
+  /* FRONT LIGHTS */
+
+  ctx.fillStyle="#fff4a0";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -22,
+    7,
+    8,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    22,
+    7,
+    8,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* LIGHT GLOW */
+
+  ctx.fillStyle="#ffe84d";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -22,
+    7,
+    4,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    22,
+    7,
+    4,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* FRONT PANEL */
+
+  ctx.fillStyle="#07527e";
+
+  ctx.fillRect(
+    -37,
+    19,
+    74,
+    11
+  );
+
+
+  /* COUPLER */
+
+  ctx.fillStyle="#182b38";
+
+  ctx.fillRect(
+    -12,
+    29,
+    24,
+    9
+  );
+
+
+  /* SIDE BOLTS */
+
+  ctx.fillStyle="#7ed5ef";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -31,
+    -5,
+    3,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    31,
+    -5,
+    3,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  ctx.strokeStyle="#063f61";
+
+  ctx.lineWidth=5;
+
+  ctx.strokeRect(
+    -37,
+    -95,
+    74,
+    125
+  );
+
+}
+
+
+/* =========================================
+   PLAYER CHARACTER
+========================================= */
+
+function drawPlayer(){
+
+  const x=
+    laneX(
+      currentLane,
+      .90
+    );
+
+  let y=
+    H*.78;
+
+
+  let jumpHeight=0;
+
+  if(action==="jump"){
+
+    const remaining=
+      Math.max(
+        0,
+        actionUntil-performance.now()
+      );
+
+    const progress=
+      1-
+      remaining/720;
+
+    jumpHeight=
+      Math.sin(
+        progress*Math.PI
+      )*92;
+
+    y-=jumpHeight;
+
+  }
+
+
+  if(action==="slide")
+    y+=23;
+
+
+  ctx.save();
+
+  ctx.translate(
+    x,
+    y
+  );
+
+
+  const runningFrame=
+    Math.sin(
+      runTime*.55
     );
 
 
-    ctx.fillStyle =
-        "#0e2a40";
+  /* SHADOW */
 
-    ctx.fillRect(
-        -27,
-        -66,
-        54,
-        35
-    );
+  ctx.fillStyle="#0006";
 
+  ctx.beginPath();
 
-    ctx.fillStyle =
-        "#c9edf8";
+  ctx.ellipse(
+    0,
+    62,
+    38,
+    9,
+    0,
+    0,
+    Math.PI*2
+  );
 
-    ctx.fillRect(
-        -21,
-        -61,
-        16,
-        19
-    );
-
-    ctx.fillRect(
-        5,
-        -61,
-        16,
-        19
-    );
+  ctx.fill();
 
 
-    ctx.fillStyle =
-        "#ffd21a";
+  /* LEGS - RUNNING ANIMATION */
+
+  ctx.lineCap="round";
+
+  ctx.strokeStyle="#17283a";
+
+  ctx.lineWidth=13;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -8,
+    18
+  );
+
+  ctx.lineTo(
+    -23-runningFrame*9,
+    51
+  );
+
+  ctx.moveTo(
+    8,
+    18
+  );
+
+  ctx.lineTo(
+    24+runningFrame*9,
+    51
+  );
+
+  ctx.stroke();
+
+
+  /* SHOES */
+
+  ctx.strokeStyle="#f5f5f5";
+
+  ctx.lineWidth=9;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -23-runningFrame*9,
+    51
+  );
+
+  ctx.lineTo(
+    -5-runningFrame*9,
+    51
+  );
+
+  ctx.moveTo(
+    24+runningFrame*9,
+    51
+  );
+
+  ctx.lineTo(
+    42+runningFrame*9,
+    51
+  );
+
+  ctx.stroke();
+
+
+  /* BODY */
+
+  let shirt="#173f73";
+
+  if(selected==="MrBeast")
+    shirt="#168dd0";
+
+  if(selected==="Doraemon")
+    shirt="#168bc5";
+
+  if(selected==="Ronaldo")
+    shirt="#d83b3b";
+
+
+  ctx.fillStyle=shirt;
+
+  ctx.beginPath();
+
+  ctx.roundRect(
+    -27,
+    -32,
+    54,
+    62,
+    17
+  );
+
+  ctx.fill();
+
+
+  /* SHIRT DETAIL */
+
+  ctx.fillStyle="#ffffff33";
+
+  ctx.fillRect(
+    -22,
+    -23,
+    44,
+    5
+  );
+
+
+  /* NECK */
+
+  ctx.fillStyle="#d99d75";
+
+  ctx.fillRect(
+    -8,
+    -37,
+    16,
+    13
+  );
+
+
+  /* HEAD */
+
+  ctx.fillStyle="#ffd0aa";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    -56,
+    26,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* EARS */
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -25,
+    -55,
+    6,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    25,
+    -55,
+    6,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* HAIR */
+
+  let hair="#263a55";
+
+  if(selected==="MrBeast")
+    hair="#51311e";
+
+  if(selected==="Doraemon")
+    hair="#5c93b5";
+
+  if(selected==="Ronaldo")
+    hair="#20252d";
+
+
+  ctx.fillStyle=hair;
+
+  ctx.beginPath();
+
+  ctx.arc(
+    0,
+    -67,
+    28,
+    Math.PI,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* HAIR LOCKS */
+
+  if(selected!=="Doraemon"){
+
+    for(let i=-2;i<=2;i++){
+
+      ctx.beginPath();
+
+      ctx.arc(
+        i*8,
+        -76+Math.abs(i)*2,
+        9,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fill();
+
+    }
+
+  }
+
+
+  /* EYES */
+
+  if(selected==="Doraemon"){
+
+    ctx.fillStyle="#fff";
 
     ctx.beginPath();
 
     ctx.arc(
-        0,
-        12,
-        9,
-        0,
-        Math.PI*2
+      -9,
+      -57,
+      7,
+      0,
+      Math.PI*2
+    );
+
+    ctx.arc(
+      9,
+      -57,
+      7,
+      0,
+      Math.PI*2
     );
 
     ctx.fill();
 
 
-    ctx.fillStyle =
-        "#102b41";
+    ctx.fillStyle="#111";
 
-    ctx.fillRect(
-        -35,
-        22,
-        70,
-        8
+    ctx.beginPath();
+
+    ctx.arc(
+      -9,
+      -57,
+      3,
+      0,
+      Math.PI*2
     );
 
-
-    ctx.strokeStyle =
-        "#0b3048";
-
-    ctx.lineWidth = 5;
-
-    ctx.strokeRect(
-        -35,
-        -82,
-        70,
-        112
+    ctx.arc(
+      9,
+      -57,
+      3,
+      0,
+      Math.PI*2
     );
 
-}
+    ctx.fill();
 
 
-/* =========================
-   PLAYER
-========================= */
+  }else{
 
-function drawPlayer(){
-
-    const x =
-        laneX(
-            currentLane,
-            .90
-        );
-
-    let y =
-        H*.79;
-
-
-    if(action === "jump")
-        y -= 85;
-
-    if(action === "slide")
-        y += 25;
-
-
-    ctx.save();
-
-    ctx.translate(
-        x,
-        y
-    );
-
-
-    /* SHADOW */
-
-    ctx.fillStyle =
-        "#0007";
+    ctx.fillStyle="#182333";
 
     ctx.beginPath();
 
     ctx.ellipse(
-        0,
-        55,
-        40,
-        9,
-        0,
-        0,
-        Math.PI*2
+      -9,
+      -56,
+      3.5,
+      5,
+      0,
+      0,
+      Math.PI*2
+    );
+
+    ctx.ellipse(
+      9,
+      -56,
+      3.5,
+      5,
+      0,
+      0,
+      Math.PI*2
     );
 
     ctx.fill();
 
-
-    /* LEGS */
-
-    ctx.strokeStyle =
-        "#172737";
-
-    ctx.lineWidth = 14;
-
-    ctx.lineCap =
-        "round";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        -9,
-        13
-    );
-
-    ctx.lineTo(
-        -25,
-        46
-    );
-
-    ctx.moveTo(
-        9,
-        13
-    );
-
-    ctx.lineTo(
-        26,
-        45
-    );
-
-    ctx.stroke();
+  }
 
 
-    /* SHOES */
+  /* NOSE */
 
-    ctx.strokeStyle =
-        "#f5f5f5";
+  ctx.fillStyle="#d99570";
 
-    ctx.lineWidth = 9;
+  ctx.beginPath();
 
-    ctx.beginPath();
+  ctx.arc(
+    0,
+    -50,
+    2.5,
+    0,
+    Math.PI*2
+  );
 
-    ctx.moveTo(
-        -25,
-        46
-    );
-
-    ctx.lineTo(
-        -7,
-        46
-    );
-
-    ctx.moveTo(
-        26,
-        45
-    );
-
-    ctx.lineTo(
-        43,
-        45
-    );
-
-    ctx.stroke();
+  ctx.fill();
 
 
-    /* BODY */
+  /* SMILE */
 
-    ctx.fillStyle =
-        selectedCharacter === "Doraemon"
-        ? "#198fd0"
-        : "#172a3d";
+  ctx.strokeStyle="#7e3d35";
 
-    ctx.beginPath();
+  ctx.lineWidth=2;
 
-    ctx.roundRect(
-        -28,
-        -30,
-        56,
-        58,
-        18
-    );
+  ctx.beginPath();
 
-    ctx.fill();
+  ctx.arc(
+    0,
+    -47,
+    8,
+    .15,
+    Math.PI-.15
+  );
+
+  ctx.stroke();
 
 
-    /* HEAD */
+  /* ARMS */
 
-    ctx.fillStyle =
-        "#ffd0a8";
+  const armSwing=
+    Math.sin(
+      runTime*.55
+    )*12;
+
+
+  ctx.strokeStyle="#ffd0aa";
+
+  ctx.lineWidth=12;
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    -22,
+    -13
+  );
+
+  ctx.lineTo(
+    -42,
+    5+armSwing
+  );
+
+  ctx.moveTo(
+    22,
+    -13
+  );
+
+  ctx.lineTo(
+    42,
+    -27-armSwing
+  );
+
+  ctx.stroke();
+
+
+  /* HANDS */
+
+  ctx.fillStyle="#ffd0aa";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    -42,
+    5+armSwing,
+    6,
+    0,
+    Math.PI*2
+  );
+
+  ctx.arc(
+    42,
+    -27-armSwing,
+    6,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* DORAEMON CHEST */
+
+  if(selected==="Doraemon"){
+
+    ctx.fillStyle="#e9e9e9";
 
     ctx.beginPath();
 
     ctx.arc(
-        0,
-        -52,
-        25,
-        0,
-        Math.PI*2
+      0,
+      7,
+      13,
+      0,
+      Math.PI*2
     );
 
     ctx.fill();
 
 
-    /* HAIR */
-
-    ctx.fillStyle =
-        selectedCharacter === "Ronaldo"
-        ? "#2c3038"
-        : selectedCharacter === "MrBeast"
-        ? "#563722"
-        : selectedCharacter === "Doraemon"
-        ? "#6b9abd"
-        : "#92502d";
+    ctx.fillStyle="#e43d3d";
 
     ctx.beginPath();
 
     ctx.arc(
-        0,
-        -62,
-        27,
-        Math.PI,
-        Math.PI*2
+      0,
+      0,
+      4,
+      0,
+      Math.PI*2
     );
 
     ctx.fill();
 
-
-    /* ARMS */
-
-    ctx.strokeStyle =
-        "#ffd0a8";
-
-    ctx.lineWidth = 12;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        -22,
-        -14
-    );
-
-    ctx.lineTo(
-        -43,
-        7
-    );
-
-    ctx.moveTo(
-        22,
-        -14
-    );
-
-    ctx.lineTo(
-        41,
-        -29
-    );
-
-    ctx.stroke();
+  }
 
 
-    ctx.restore();
+  ctx.restore();
 
 }
 
 
-/* =========================
+/* =========================================
    CROWD
-========================= */
+========================================= */
 
 function drawCrowd(){
 
-    for(
-        let i=0;
-        i<11;
-        i++
-    ){
+  const offset=
+    (world*.02)%45;
 
-        const x =
-            i*(W/10) +
-            Math.sin(
-                worldOffset*.01+i
-            )*4;
+  for(let i=-1;i<13;i++){
 
-        const y =
-            H*.96;
+    const x=
+      i*(W/11)+offset;
 
+    const y=
+      H*.97;
 
-        /* BODY */
+    ctx.fillStyle=
+      i%2
+      ? "#19232c"
+      : "#303b44";
 
-        ctx.fillStyle =
-            i%2
-            ? "#161e27"
-            : "#28343e";
+    ctx.beginPath();
 
-        ctx.fillRect(
-            x-22,
-            y-7,
-            44,
-            32
-        );
+    ctx.arc(
+      x,
+      y-30,
+      17,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
 
 
-        /* HEAD */
+    ctx.fillStyle="#ffd0aa";
 
-        ctx.fillStyle =
-            "#ffd0a8";
+    ctx.beginPath();
 
-        ctx.beginPath();
+    ctx.arc(
+      x,
+      y-36,
+      9,
+      0,
+      Math.PI*2
+    );
 
-        ctx.arc(
-            x,
-            y-35,
-            10,
-            0,
-            Math.PI*2
-        );
+    ctx.fill();
 
-        ctx.fill();
+
+    /* RAISED HAND */
+
+    if(i%3===0){
+
+      ctx.strokeStyle="#ffd0aa";
+
+      ctx.lineWidth=5;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        x+10,
+        y-25
+      );
+
+      ctx.lineTo(
+        x+22,
+        y-52
+      );
+
+      ctx.stroke();
 
     }
+
+  }
 
 }
 
 
-/* =========================
-   INITIAL DRAW
-========================= */
+/* =========================================
+   INITIAL
+========================================= */
 
 draw();
 
