@@ -2,548 +2,445 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Abey Bhaag!</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Abey Bhaag! — Reference Style Runner</title>
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#05070c;
-  color:white;
-  touch-action:none;
-}
-
-button{
-  border:0;
-  font:inherit;
-  color:inherit;
-  cursor:pointer;
-}
-
-#app{
-  width:100%;
-  height:100%;
-  max-width:600px;
-  margin:auto;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(#1595e8 0%,#75d7ff 42%,#1d2430 42%,#11151b 100%);
-}
-
-/* ---------- HOME ---------- */
-
-.screen{
-  position:absolute;
-  inset:0;
-  display:none;
-}
-
-.screen.active{
-  display:block;
-}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05070b;font-family:Arial,Helvetica,sans-serif}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+#app{width:min(100vw,430px);height:100dvh;margin:auto;position:relative;overflow:hidden;background:#09192a;color:white}
+.screen{position:absolute;inset:0;display:none}
+.screen.active{display:block}
 
 #home{
-  overflow-y:auto;
-  background:
-    radial-gradient(circle at 50% 20%,#8de3ff 0,#319bdc 35%,#091525 75%);
+background:linear-gradient(#28b5ff 0%,#b7efff 43%,#2a5875 100%);
+overflow-y:auto
+}
+.home{padding:12px 10px 90px;min-height:100%}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center
 }
 
-.topbar{
-  position:absolute;
-  top:15px;
-  left:14px;
-  right:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:20;
-}
-
-.coin-box{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:rgba(0,0,0,.55);
-  border:2px solid rgba(255,255,255,.18);
-  border-radius:18px;
-  padding:8px 12px;
-  font-weight:900;
-  font-size:18px;
+.wallet{
+background:#132943;
+border:3px solid #ffd21a;
+border-radius:16px;
+padding:6px 11px;
+font-weight:900;
+font-size:19px;
+box-shadow:0 4px 0 #0006
 }
 
 .coin{
-  width:27px;
-  height:27px;
-  border-radius:50%;
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(#ffe66a,#f5a900);
-  border:3px solid #ffcf24;
-  color:#8b5200;
-  font-size:14px;
-  box-shadow:0 2px 5px #0008;
+display:inline-flex;
+width:25px;
+height:25px;
+border-radius:50%;
+align-items:center;
+justify-content:center;
+background:#ffc817;
+border:2px solid #fff17b;
+color:#9c5d00;
+font-size:15px
 }
 
-.top-buttons{
-  display:flex;
-  gap:8px;
-}
+.icons{display:flex;gap:7px}
 
-.icon-btn{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  background:#101c2c;
-  border:3px solid #55c9ff;
-  font-size:25px;
-  box-shadow:0 4px 0 #07101b;
-}
-
-.hero{
-  position:absolute;
-  top:62px;
-  left:0;
-  right:0;
-  text-align:center;
+.ico{
+width:48px;
+height:48px;
+border:3px solid #193650;
+border-radius:14px;
+background:#f5f8ff;
+font-size:22px
 }
 
 .logo{
-  font-size:clamp(46px,12vw,72px);
-  line-height:.8;
-  font-weight:1000;
-  letter-spacing:-5px;
-  transform:rotate(-3deg);
-  text-shadow:
-    5px 5px 0 #151515,
-    8px 8px 0 #ff8b00;
-  color:#ffe21b;
+text-align:center;
+margin:7px 0 2px;
+font-size:54px;
+line-height:.78;
+font-weight:1000;
+font-style:italic;
+letter-spacing:-4px;
+color:#ffc400;
+text-shadow:4px 5px #172d4a,-2px -2px white
 }
 
-.logo span{
-  display:block;
-  color:#19a9ff;
-  text-shadow:
-    5px 5px 0 #101010,
-    8px 8px 0 #0061a8;
-}
+.logo span{color:#08c5ff}
 
-.subtitle{
-  margin-top:12px;
-  display:inline-block;
-  background:#f2a92a;
-  border:4px solid #171717;
-  border-radius:18px;
-  padding:7px 16px;
-  color:#161616;
-  font-weight:1000;
-  transform:rotate(-2deg);
-}
-
-.city{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:220px;
-  height:250px;
-  opacity:.9;
-  background:
-    linear-gradient(90deg,
-      transparent 0 4%,
-      #52647a 4% 13%,
-      transparent 13% 17%,
-      #3f5267 17% 27%,
-      transparent 27% 32%,
-      #596a7c 32% 40%,
-      transparent 40% 44%,
-      #34465a 44% 55%,
-      transparent 55% 60%,
-      #59687a 60% 69%,
-      transparent 69% 73%,
-      #40536b 73% 82%,
-      transparent 82% 88%,
-      #536579 88% 97%,
-      transparent 97%);
-  clip-path:polygon(
-    0 55%,5% 55%,5% 35%,10% 35%,10% 50%,15% 50%,15% 25%,
-    20% 25%,20% 48%,25% 48%,25% 12%,31% 12%,31% 48%,
-    37% 48%,37% 32%,43% 32%,43% 48%,49% 48%,49% 0,
-    55% 0,55% 48%,61% 48%,61% 22%,67% 22%,67% 48%,
-    73% 48%,73% 29%,79% 29%,79% 48%,86% 48%,86% 17%,
-    92% 17%,92% 48%,100% 48%,100% 100%,0 100%);
+.ribbon{
+display:inline-block;
+margin-top:10px;
+padding:7px 18px;
+background:#f6b10c;
+border:3px solid #6e3d00;
+border-radius:12px;
+color:#162a3f;
+font-size:13px;
+transform:rotate(-3deg)
 }
 
 .play{
-  position:absolute;
-  bottom:355px;
-  left:50%;
-  transform:translateX(-50%);
-  width:78%;
-  max-width:390px;
-  padding:18px;
-  border-radius:45px;
-  background:linear-gradient(#ffe93b,#ff9e00);
-  border:6px solid #111;
-  box-shadow:0 8px 0 #743900,0 12px 25px #0009;
-  color:#fff;
-  font-size:42px;
-  font-weight:1000;
-  text-shadow:3px 4px 0 #222;
+display:block;
+width:77%;
+margin:17px auto 13px;
+padding:10px;
+border-radius:31px;
+border:5px solid #fff;
+background:linear-gradient(#ffe522,#ff9700);
+color:#14243b;
+font-size:34px;
+font-weight:1000;
+box-shadow:0 8px 0 #934700,0 10px 20px #0019
 }
 
-.play:active{
-  transform:translateX(-50%) translateY(5px);
-  box-shadow:0 3px 0 #743900;
+.panel{
+margin:9px 0;
+background:#09213ae8;
+border:3px solid #3ec0ff;
+border-radius:18px;
+padding:10px;
+box-shadow:0 6px 15px #0018
 }
 
-.character-title{
-  position:absolute;
-  bottom:302px;
-  width:100%;
-  text-align:center;
-  font-weight:1000;
-  font-size:19px;
-  text-shadow:2px 2px #000;
+.panel h3{
+margin:0 0 8px;
+font-size:17px
 }
 
 .characters{
-  position:absolute;
-  bottom:85px;
-  left:8px;
-  right:8px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:6px
 }
 
-.character{
-  height:120px;
-  border-radius:16px;
-  background:linear-gradient(#26384e,#0c1420);
-  border:3px solid #526579;
-  position:relative;
-  text-align:center;
-  overflow:hidden;
-  box-shadow:0 5px 0 #060b11;
+.char{
+border:3px solid #315875;
+border-radius:13px;
+background:linear-gradient(#193e60,#091c31);
+padding:5px 2px;
+color:#fff;
+text-align:center
 }
 
-.character.selected{
-  border-color:#65ff45;
-  box-shadow:0 0 0 2px #65ff45,0 5px 0 #063900;
+.char.sel{
+border-color:#67ff54;
+box-shadow:0 0 14px #62ff7b77 inset
 }
 
-.avatar{
-  height:78px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:55px;
+.portrait{
+height:77px;
+border-radius:9px;
+background:linear-gradient(#7bd8ff,#e9f8ff);
+position:relative;
+overflow:hidden
 }
 
-.character-name{
-  font-size:13px;
-  font-weight:1000;
+.portrait:before{
+content:"";
+position:absolute;
+width:42px;
+height:42px;
+left:50%;
+top:10px;
+transform:translateX(-50%);
+border-radius:50%;
+background:#ffd1aa;
+border:2px solid #6d3924
 }
 
+.portrait:after{
+content:"";
+position:absolute;
+width:49px;
+height:28px;
+left:50%;
+top:5px;
+transform:translateX(-50%);
+border-radius:50% 50% 20% 20%;
+background:#9a5127
+}
+
+.body{
+position:absolute;
+width:50px;
+height:44px;
+left:50%;
+bottom:-9px;
+transform:translateX(-50%);
+border-radius:21px 21px 5px 5px;
+background:#182534
+}
+
+.blue .body{background:#159dd8}
+.red .body{background:#d83b35}
+.cat:before{background:#fff}
+.cat:after{background:#739bc0}
+
+.char b{font-size:10px}
 .price{
-  color:#ffd42a;
-  font-size:12px;
-  font-weight:900;
+color:#ffd21a;
+font-size:10px;
+font-weight:900
 }
 
-.lock{
-  position:absolute;
-  top:5px;
-  right:5px;
-  font-size:16px;
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px
 }
 
-/* ---------- BOTTOM NAV ---------- */
+.stat{
+padding:9px 3px;
+text-align:center;
+background:#0c3150;
+border:2px solid #31adf2;
+border-radius:12px;
+font-size:11px;
+font-weight:900
+}
 
 .nav{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  height:78px;
-  background:linear-gradient(#172537,#07101b);
-  border-top:3px solid #42566b;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  z-index:30;
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+height:70px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:4px;
+padding:6px;
+background:#06182cf5;
+border-top:2px solid #335a76;
+z-index:30
 }
 
 .nav button{
-  background:transparent;
-  font-size:12px;
-  font-weight:1000;
-  color:#b9c7d5;
+border:0;
+border-radius:12px;
+background:#113555;
+color:#fff;
+font-weight:1000
 }
 
-.nav button.active{
-  background:linear-gradient(#ffd83a,#ff9b00);
-  color:#111;
-  border-radius:16px 16px 0 0;
+.nav .active{
+background:linear-gradient(#ffe520,#ff9c00);
+color:#14243b
 }
-
-.nav-icon{
-  display:block;
-  font-size:27px;
-}
-
-/* ---------- GAME ---------- */
 
 #game{
-  background:#72d7ff;
-  overflow:hidden;
+background:#64ccff;
+touch-action:none
 }
 
-.game-sky{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(#31baf7 0%,#a5ecff 47%,#4c8d58 47%,#26582e 100%);
-}
-
-.road{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:68%;
-  background:#30343a;
-  clip-path:polygon(28% 0,72% 0,100% 100%,0 100%);
-  overflow:hidden;
-}
-
-.lane{
-  position:absolute;
-  top:0;
-  width:5px;
-  height:100%;
-  background:#e6e6d5;
-  opacity:.65;
-}
-
-.l1{left:40%}
-.l2{left:60%}
-
-.track-line{
-  position:absolute;
-  width:7px;
-  height:90px;
-  background:#fff;
-  opacity:.75;
-  animation:roadmove .55s linear infinite;
-}
-
-.t1{left:49%;top:-100px}
-.t2{left:49%;top:100px;animation-delay:.27s}
-
-@keyframes roadmove{
-  from{transform:translateY(-120px)}
-  to{transform:translateY(500px)}
+canvas{
+position:absolute;
+inset:0;
+width:100%;
+height:100%
 }
 
 .hud{
-  position:absolute;
-  top:12px;
-  left:10px;
-  right:10px;
-  z-index:20;
-  display:flex;
-  justify-content:space-between;
+position:absolute;
+top:8px;
+left:8px;
+right:8px;
+z-index:20;
+display:flex;
+justify-content:space-between;
+gap:5px
 }
 
-.hud-box{
-  background:#07101bcc;
-  border:3px solid #dceeff;
-  border-radius:13px;
-  padding:8px 12px;
-  font-weight:1000;
+.hudbox{
+background:#071c32eF;
+border:3px solid #fff;
+border-radius:14px;
+padding:5px 8px;
+font-weight:1000;
+font-size:14px;
+box-shadow:0 4px 8px #0007
 }
 
 .pause{
-  width:46px;
-  height:46px;
-  border-radius:12px;
-  background:#1395dc;
-  border:3px solid white;
-  font-size:23px;
+position:absolute;
+left:9px;
+top:69px;
+z-index:20;
+width:48px;
+height:48px;
+border:3px solid #23415d;
+border-radius:14px;
+background:#f4f8ff;
+font-size:21px
 }
 
-.player{
-  position:absolute;
-  z-index:10;
-  left:50%;
-  bottom:125px;
-  transform:translateX(-50%);
-  width:85px;
-  height:110px;
-  font-size:78px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:left .12s;
-  filter:drop-shadow(0 8px 4px #0007);
-}
-
-.player.run{
-  animation:run .18s infinite alternate;
-}
-
-@keyframes run{
-  from{transform:translateX(-50%) rotate(-3deg)}
-  to{transform:translateX(-50%) rotate(3deg)}
-}
-
-.object{
-  position:absolute;
-  z-index:8;
-  width:55px;
-  height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:45px;
-}
-
-.coin-object{
-  animation:spin .5s linear infinite;
-}
-
-@keyframes spin{
-  50%{transform:rotateY(180deg) scale(1.12)}
+.powerbar{
+position:absolute;
+right:7px;
+top:72px;
+z-index:20;
+display:flex;
+flex-direction:column;
+gap:6px
 }
 
 .power{
-  position:absolute;
-  right:10px;
-  top:125px;
-  z-index:20;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+width:61px;
+border:3px solid #2ebcff;
+border-radius:12px;
+background:#071d35e8;
+text-align:center;
+padding:4px 2px;
+font-size:9px;
+font-weight:1000;
+box-shadow:0 4px 9px #0007
 }
 
-.power button{
-  width:58px;
-  height:58px;
-  border-radius:12px;
-  background:#07101dcc;
-  border:3px solid #dceeff;
-  font-size:28px;
+.power span{
+display:block;
+font-size:27px;
+line-height:27px
 }
 
-#gameOver{
-  position:absolute;
-  inset:0;
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:#0009;
+.power.active{border-color:#ffd21a}
+
+.controls{
+position:absolute;
+z-index:20;
+bottom:8px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:5px
 }
 
-.gameover-card{
-  width:85%;
-  padding:25px;
-  text-align:center;
-  border-radius:25px;
-  background:linear-gradient(#263b53,#0a111a);
-  border:4px solid #fff;
-  box-shadow:0 15px 40px #000;
+.controls button{
+width:54px;
+height:43px;
+border:3px solid white;
+border-radius:13px;
+background:#071d35bb;
+color:white;
+font-size:20px;
+font-weight:1000
 }
 
-.gameover-card h1{
-  font-size:42px;
-  color:#ffcf27;
-  text-shadow:3px 3px #000;
+#toast{
+position:absolute;
+z-index:60;
+top:72px;
+left:50%;
+transform:translateX(-50%);
+background:#071c32f5;
+border:2px solid #ffd21a;
+border-radius:12px;
+padding:7px 12px;
+font-weight:1000;
+display:none
 }
 
-.gameover-card p{
-  margin:12px;
-  font-size:20px;
+#over{
+position:absolute;
+inset:0;
+z-index:50;
+display:none;
+align-items:center;
+justify-content:center;
+background:#000b;
+padding:18px
 }
 
-.restart{
-  padding:14px 35px;
-  border-radius:30px;
-  background:#ffb900;
-  color:#111;
-  font-weight:1000;
-  font-size:20px;
+#over.show{display:flex}
+
+.overbox{
+width:90%;
+padding:20px;
+border-radius:23px;
+border:4px solid #38bdff;
+background:linear-gradient(#123b61,#071a30);
+text-align:center;
+box-shadow:0 12px 45px #000
 }
 
-/* ---------- SHOP / MISSIONS ---------- */
-
-.panel{
-  position:absolute;
-  inset:0;
-  padding:25px 15px 95px;
-  overflow:auto;
-  background:linear-gradient(#152a42,#05080d);
+.overbox h2{
+margin:0;
+color:#ffd21a;
+font-size:38px;
+text-shadow:3px 3px #17304b
 }
 
-.panel h1{
-  text-align:center;
-  font-size:38px;
-  margin:10px 0 25px;
-  color:#ffd52a;
-  text-shadow:3px 3px #000;
+.overbox p{
+margin:5px 0 15px;
+font-weight:800
 }
 
-.card{
-  background:linear-gradient(135deg,#243950,#0b131d);
-  border:2px solid #4f718f;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.overstats{
+display:flex;
+gap:7px
 }
 
-.card strong{
-  font-size:18px;
+.overstat{
+flex:1;
+border:2px solid #2d9ed9;
+border-radius:11px;
+padding:9px;
+font-weight:1000
 }
 
-.buy{
-  padding:10px 18px;
-  border-radius:20px;
-  background:#20bd4b;
-  font-weight:1000;
+.again{
+width:100%;
+margin-top:13px;
+border:4px solid white;
+border-radius:18px;
+background:linear-gradient(#ffe522,#ff9700);
+padding:10px;
+color:#14243b;
+font-size:21px;
+font-weight:1000
 }
 
-.disabled{
-  opacity:.5;
+.homebtn{
+margin-top:8px;
+border:0;
+border-radius:11px;
+padding:8px 18px;
+font-weight:900
 }
 
-/* ---------- RESPONSIVE ---------- */
-
-@media(max-height:700px){
-  .play{bottom:310px}
-  .character-title{bottom:260px}
-  .characters{bottom:76px}
-  .character{height:105px}
-  .avatar{height:63px;font-size:45px}
+#shop,#missions{
+padding:15px 12px 85px;
+background:linear-gradient(#34bcff,#0a426d);
+overflow:auto
 }
 
-@media(min-width:601px){
-  #app{
-    box-shadow:0 0 50px #000;
-  }
+.back{
+border:0;
+border-radius:11px;
+padding:8px 13px;
+background:white;
+color:#132b43;
+font-weight:1000
+}
+
+.title{
+text-align:center;
+font-size:39px;
+margin:13px 0;
+text-shadow:3px 4px #12314d
+}
+
+.item{
+margin:8px 0;
+padding:13px;
+border:2px solid #36b9ff;
+border-radius:14px;
+background:#0b2944;
+text-align:center;
+font-weight:900
 }
 </style>
 </head>
@@ -552,697 +449,1329 @@ button{
 
 <div id="app">
 
-<!-- HOME -->
 <section id="home" class="screen active">
+<div class="home">
 
-  <div class="topbar">
-    <div class="coin-box">
-      <span class="coin">★</span>
-      <span id="homeCoins">350</span>
-      <span>＋</span>
-    </div>
+<div class="top">
+<div class="wallet">🪙 <span id="bank">350</span></div>
 
-    <div class="top-buttons">
-      <button class="icon-btn" onclick="alert('Settings coming soon ⚙️')">⚙️</button>
-      <button class="icon-btn" onclick="showScreen('leaderboard')">🏆</button>
-    </div>
-  </div>
+<div class="icons">
+<button class="ico">⚙️</button>
+<button class="ico">🏆</button>
+</div>
+</div>
 
-  <div class="hero">
-    <div class="logo">ABEY<span>BHAAG!</span></div>
-    <div class="subtitle">Pakray gaye to Game Over! 😂</div>
-  </div>
+<div class="logo">
+ABEY<br>
+<span>BHAAG!</span>
+<div class="ribbon">🏃 Pakray gaye to Game Over! 🎮</div>
+</div>
 
-  <div class="city"></div>
+<button class="play" onclick="startGame()">▶ PLAY</button>
 
-  <button class="play" onclick="startGame()">▶ PLAY</button>
+<div class="panel">
+<h3>SELECT CHARACTER</h3>
+<div id="chars" class="characters"></div>
+</div>
 
-  <div class="character-title">SELECT CHARACTER</div>
+<div class="panel">
+<div class="stats">
 
-  <div class="characters">
+<div class="stat">
+🪙<br>
+<span id="homeCoins">350</span><br>
+COINS
+</div>
 
-    <button class="character selected" onclick="selectCharacter('adrien',this)">
-      <div class="avatar">👱🏻‍♂️</div>
-      <div class="character-name">ADRIEN</div>
-      <div class="price">FREE</div>
-    </button>
+<div class="stat">
+🏃<br>
+ENDLESS<br>
+RUN
+</div>
 
-    <button class="character" onclick="selectCharacter('mrbeast',this)">
-      <span class="lock">🔒</span>
-      <div class="avatar">🧔🏻</div>
-      <div class="character-name">MRBEAST</div>
-      <div class="price">🪙 1,000</div>
-    </button>
+<div class="stat">
+🔥<br>
+BEST<br>
+<span id="best">0</span>
+</div>
 
-    <button class="character" onclick="selectCharacter('doraemon',this)">
-      <span class="lock">🔒</span>
-      <div class="avatar">🔵</div>
-      <div class="character-name">DORAEMON</div>
-      <div class="price">🪙 500</div>
-    </button>
+</div>
+</div>
 
-    <button class="character" onclick="selectCharacter('ronaldo',this)">
-      <span class="lock">🔒</span>
-      <div class="avatar">⚽</div>
-      <div class="character-name">RONALDO</div>
-      <div class="price">🪙 2,000</div>
-    </button>
+</div>
 
-  </div>
-
-  <nav class="nav">
-    <button class="active" onclick="showScreen('home')">
-      <span class="nav-icon">🏠</span>HOME
-    </button>
-    <button onclick="showScreen('shop')">
-      <span class="nav-icon">🛍️</span>SHOP
-    </button>
-    <button onclick="showScreen('characters')">
-      <span class="nav-icon">🎮</span>CHARACTERS
-    </button>
-    <button onclick="showScreen('leaderboard')">
-      <span class="nav-icon">🏆</span>LEADERBOARD
-    </button>
-  </nav>
+<div class="nav">
+<button class="active">🏠<br>HOME</button>
+<button onclick="page('shop')">🛒<br>SHOP</button>
+<button onclick="page('missions')">📋<br>MISSIONS</button>
+</div>
 
 </section>
 
 
-<!-- GAME -->
+<section id="shop" class="screen">
+
+<button class="back" onclick="page('home')">← Back</button>
+
+<h1 class="title">🛒 SHOP</h1>
+
+<div class="panel">
+
+<h3>POWER-UPS</h3>
+
+<div class="item">
+🧲 MAGNET<br>
+<small>Collect nearby coins automatically</small><br>
+<span class="price">🪙 300</span>
+</div>
+
+<div class="item">
+👟 SPEED<br>
+<small>Run faster for a short time</small><br>
+<span class="price">🪙 400</span>
+</div>
+
+<div class="item">
+🛡️ SHIELD<br>
+<small>Save yourself from one crash</small><br>
+<span class="price">🪙 400</span>
+</div>
+
+</div>
+</section>
+
+
+<section id="missions" class="screen">
+
+<button class="back" onclick="page('home')">← Back</button>
+
+<h1 class="title">📋 MISSIONS</h1>
+
+<div class="panel">
+
+<div class="item">
+🪙 Collect 100 coins<br>
+Reward: 🪙100
+</div>
+
+<div class="item">
+🏃 Run 1,000 meters<br>
+Reward: 🪙150
+</div>
+
+<div class="item">
+🚧 Dodge 20 obstacles<br>
+Reward: 🪙200
+</div>
+
+<div class="item">
+🏆 Reach 10,000 score<br>
+Reward: 🪙500
+</div>
+
+</div>
+</section>
+
+
 <section id="game" class="screen">
 
-  <div class="game-sky"></div>
+<canvas id="c"></canvas>
 
-  <div class="road">
-    <div class="lane l1"></div>
-    <div class="lane l2"></div>
-    <div class="track-line t1"></div>
-    <div class="track-line t2"></div>
-  </div>
+<div class="hud">
+<div class="hudbox">⭐ <span id="score">00000</span></div>
+<div class="hudbox">🪙 <span id="coins">0</span></div>
+<div class="hudbox">🏃 <span id="meters">0</span>m</div>
+</div>
 
-  <div class="hud">
-    <button class="pause" onclick="pauseGame()">Ⅱ</button>
+<button class="pause" onclick="pause()">⏸</button>
 
-    <div class="hud-box">
-      ⭐ <span id="score">0</span>
-    </div>
+<div class="powerbar">
 
-    <div class="hud-box">
-      🪙 <span id="gameCoins">0</span>
-    </div>
-  </div>
+<div class="power" id="pchar">
+<span>🏃</span>
+ADRIEN<br>FREE
+</div>
 
-  <div class="power">
-    <button onclick="activateMagnet()">🧲</button>
-    <button onclick="activateSpeed()">👟</button>
-    <button onclick="activateShield()">🛡️</button>
-  </div>
+<div class="power" id="pmagnet">
+<span>🧲</span>
+MAGNET<br>x1
+</div>
 
-  <div id="player" class="player run">🏃🏻</div>
+<div class="power" id="pspeed">
+<span>👟</span>
+SPEED<br>x1
+</div>
 
-  <div id="gameObjects"></div>
+<div class="power" id="pshield">
+<span>🛡️</span>
+SHIELD<br>x1
+</div>
 
-  <div id="gameOver">
-    <div class="gameover-card">
-      <h1>GAME OVER! 😂</h1>
-      <p>Score: <strong id="finalScore">0</strong></p>
-      <p>Coins: 🪙 <strong id="finalCoins">0</strong></p>
-      <button class="restart" onclick="startGame()">🔄 PLAY AGAIN</button>
-    </div>
-  </div>
+</div>
 
-</section>
+<div id="toast"></div>
 
+<div class="controls">
+<button onclick="laneMove(-1)">◀</button>
+<button onclick="doJump()">⬆</button>
+<button onclick="doSlide()">⬇</button>
+<button onclick="laneMove(1)">▶</button>
+</div>
 
-<!-- SHOP -->
-<section id="shop" class="screen">
-  <div class="panel">
-    <h1>🛍️ SHOP</h1>
+<div id="over">
 
-    <div class="coin-box" style="justify-content:center;margin-bottom:20px">
-      🪙 <span id="shopCoins">350</span> COINS
-    </div>
+<div class="overbox">
 
-    <div class="card">
-      <div>
-        <strong>🧲 Coin Magnet</strong>
-        <br>Collect nearby coins
-      </div>
-      <button class="buy">🪙 250</button>
-    </div>
+<h2>GAME OVER!</h2>
 
-    <div class="card">
-      <div>
-        <strong>👟 Super Speed</strong>
-        <br>Run faster
-      </div>
-      <button class="buy">🪙 300</button>
-    </div>
+<p>Fans ne pakar liya! 😱</p>
 
-    <div class="card">
-      <div>
-        <strong>🛡️ Shield</strong>
-        <br>Survive one hit
-      </div>
-      <button class="buy">🪙 400</button>
-    </div>
+<div class="overstats">
 
-  </div>
+<div class="overstat">
+⭐ SCORE<br>
+<span id="finalScore">0</span>
+</div>
 
-  <nav class="nav">
-    <button onclick="showScreen('home')"><span class="nav-icon">🏠</span>HOME</button>
-    <button class="active"><span class="nav-icon">🛍️</span>SHOP</button>
-    <button onclick="showScreen('characters')"><span class="nav-icon">🎮</span>CHARACTERS</button>
-    <button onclick="showScreen('leaderboard')"><span class="nav-icon">🏆</span>LEADERBOARD</button>
-  </nav>
-</section>
+<div class="overstat">
+🪙 COINS<br>
+<span id="finalCoins">0</span>
+</div>
 
+</div>
 
-<!-- CHARACTERS -->
-<section id="characters" class="screen">
-  <div class="panel">
-    <h1>🎮 CHARACTERS</h1>
+<button class="again" onclick="startGame()">
+🔄 RUN AGAIN
+</button>
 
-    <div class="card">
-      <div>
-        <strong>👱🏻‍♂️ ADRIEN</strong><br>
-        Fast starter character
-      </div>
-      <button class="buy">FREE</button>
-    </div>
+<br>
 
-    <div class="card">
-      <div>
-        <strong>🧔🏻 MRBEAST</strong><br>
-        High score bonus
-      </div>
-      <button class="buy">🪙 1,000</button>
-    </div>
+<button class="homebtn" onclick="page('home')">
+🏠 HOME
+</button>
 
-    <div class="card">
-      <div>
-        <strong>🔵 DORAEMON</strong><br>
-        Better coin collection
-      </div>
-      <button class="buy">🪙 500</button>
-    </div>
+</div>
+</div>
 
-    <div class="card">
-      <div>
-        <strong>⚽ RONALDO</strong><br>
-        Super speed
-      </div>
-      <button class="buy">🪙 2,000</button>
-    </div>
-  </div>
-
-  <nav class="nav">
-    <button onclick="showScreen('home')"><span class="nav-icon">🏠</span>HOME</button>
-    <button onclick="showScreen('shop')"><span class="nav-icon">🛍️</span>SHOP</button>
-    <button class="active"><span class="nav-icon">🎮</span>CHARACTERS</button>
-    <button onclick="showScreen('leaderboard')"><span class="nav-icon">🏆</span>LEADERBOARD</button>
-  </nav>
-</section>
-
-
-<!-- LEADERBOARD -->
-<section id="leaderboard" class="screen">
-  <div class="panel">
-    <h1>🏆 LEADERBOARD</h1>
-
-    <div class="card">
-      <strong>🥇 ADRIEN</strong>
-      <span>⭐ 12,560</span>
-    </div>
-
-    <div class="card">
-      <strong>🥈 MRBEAST</strong>
-      <span>⭐ 10,820</span>
-    </div>
-
-    <div class="card">
-      <strong>🥉 RONALDO</strong>
-      <span>⭐ 9,450</span>
-    </div>
-
-    <div class="card">
-      <strong>YOU</strong>
-      <span>⭐ <span id="bestScore">0</span></span>
-    </div>
-  </div>
-
-  <nav class="nav">
-    <button onclick="showScreen('home')"><span class="nav-icon">🏠</span>HOME</button>
-    <button onclick="showScreen('shop')"><span class="nav-icon">🛍️</span>SHOP</button>
-    <button onclick="showScreen('characters')"><span class="nav-icon">🎮</span>CHARACTERS</button>
-    <button class="active"><span class="nav-icon">🏆</span>LEADERBOARD</button>
-  </nav>
 </section>
 
 </div>
 
 
 <script>
-/* =========================
-   GAME DATA
-========================= */
 
-let coins = Number(localStorage.getItem("coins")) || 350;
-let bestScore = Number(localStorage.getItem("bestScore")) || 0;
+const cv=document.getElementById('c'),
+x=cv.getContext('2d');
 
-let selectedCharacter =
-  localStorage.getItem("character") || "adrien";
+let W=430,H=760,dpr=1,raf=0,last=0,
+running=false,isPaused=false,lane=1,
+act='none';
 
-let score = 0;
-let gameCoins = 0;
-let running = false;
-let paused = false;
-let lane = 1;
-let objects = [];
-let gameLoop = null;
-let spawnLoop = null;
+let score=0,
+coins=0,
+meters=0,
+bank=350,
+best=+localStorage.getItem('abeyBest')||0;
 
-const characters = {
-  adrien: {
-    emoji:"🏃🏻",
-    price:0
-  },
-  mrbeast:{
-    emoji:"🧔🏻",
-    price:1000
-  },
-  doraemon:{
-    emoji:"🔵",
-    price:500
-  },
-  ronaldo:{
-    emoji:"⚽",
-    price:2000
-  }
-};
+let speed=6,
+spawn=0,
+items=[],
+inv=0,
+shield=1,
+magnet=0,
+boost=0,
+selected='adrien';
 
 
-/* =========================
-   SCREEN SYSTEM
-========================= */
+const characters=[
 
-function showScreen(id){
+['adrien','ADRIEN',0,'','FREE'],
 
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
-  });
+['mrbeast','MRBEAST',1000,'blue','🪙 1,000'],
 
-  document.getElementById(id).classList.add("active");
+['doraemon','DORAEMON',500,'cat','🪙 500'],
 
-  updateUI();
+['ronaldo','RONALDO',2000,'red','🪙 2,000']
+
+];
+
+
+function size(){
+
+W=cv.clientWidth||430;
+H=cv.clientHeight||760;
+
+dpr=Math.min(devicePixelRatio||1,2);
+
+cv.width=W*dpr;
+cv.height=H*dpr;
+
+x.setTransform(dpr,0,0,dpr,0,0);
+
+}
+
+addEventListener('resize',size);
+
+size();
+
+
+function renderChars(){
+
+document.getElementById('chars').innerHTML=
+
+characters.map(c=>`
+
+<button class="char ${selected===c[0]?'sel':''}"
+onclick="selectChar('${c[0]}')">
+
+<div class="portrait ${c[3]}">
+<i class="body"></i>
+</div>
+
+<b>${c[1]}</b><br>
+
+<span class="price">${c[4]}</span>
+
+</button>
+
+`).join('');
+
+document.getElementById('bank').textContent=bank;
+
+document.getElementById('homeCoins').textContent=bank;
+
+document.getElementById('best').textContent=
+best.toLocaleString();
+
 }
 
 
-/* =========================
-   UI
-========================= */
+function selectChar(id){
 
-function updateUI(){
+let c=characters.find(a=>a[0]===id);
 
-  document.getElementById("homeCoins").textContent = coins;
-  document.getElementById("shopCoins").textContent = coins;
-  document.getElementById("bestScore").textContent = bestScore;
+if(c[2]&&selected!==id){
 
-  document.getElementById("gameCoins").textContent = gameCoins;
+if(bank<c[2])
+return toast('🪙 Coins kam hain');
+
+bank-=c[2];
+
+}
+
+selected=id;
+
+renderChars();
+
+toast(c[1]+' selected!');
+
 }
 
 
-function save(){
+function page(id){
 
-  localStorage.setItem("coins",coins);
-  localStorage.setItem("bestScore",bestScore);
-  localStorage.setItem("character",selectedCharacter);
+stop();
 
-  updateUI();
+document.querySelectorAll('.screen')
+.forEach(s=>s.classList.remove('active'));
+
+document.getElementById(id).classList.add('active');
+
+if(id==='home')renderChars();
+
 }
 
 
-/* =========================
-   CHARACTER
-========================= */
+function toast(t){
 
-function selectCharacter(name,element){
+let q=document.getElementById('toast');
 
-  const price = characters[name].price;
+q.textContent=t;
 
-  if(price > 0){
+q.style.display='block';
 
-    const owned =
-      localStorage.getItem("owned_"+name) === "true";
+clearTimeout(q._t);
 
-    if(!owned){
+q._t=setTimeout(()=>{
+q.style.display='none'
+},1000);
 
-      if(coins < price){
-        alert("Coins kam hain 😅");
-        return;
-      }
-
-      coins -= price;
-
-      localStorage.setItem("owned_"+name,"true");
-    }
-  }
-
-  selectedCharacter = name;
-
-  document.querySelectorAll(".character")
-    .forEach(c=>c.classList.remove("selected"));
-
-  if(element) element.classList.add("selected");
-
-  save();
-
-  alert(name.toUpperCase()+" selected! 🎮");
 }
 
-
-/* =========================
-   GAME START
-========================= */
 
 function startGame(){
 
-  document.getElementById("gameOver").style.display="none";
+document.querySelectorAll('.screen')
+.forEach(s=>s.classList.remove('active'));
 
-  showScreen("game");
+document.getElementById('game')
+.classList.add('active');
 
-  score = 0;
-  gameCoins = 0;
-  lane = 1;
-  running = true;
-  paused = false;
+score=0;
+coins=0;
+meters=0;
 
-  objects = [];
+speed=6;
+lane=1;
+act='none';
+items=[];
+spawn=0;
+inv=0;
+shield=1;
+magnet=0;
+boost=0;
 
-  document.getElementById("score").textContent="0";
-  document.getElementById("gameCoins").textContent="0";
+running=true;
+isPaused=false;
 
-  const player = document.getElementById("player");
+document.getElementById('over')
+.classList.remove('show');
 
-  player.textContent =
-    characters[selectedCharacter].emoji;
+last=performance.now();
 
-  setLane();
+cancelAnimationFrame(raf);
 
-  clearInterval(gameLoop);
-  clearInterval(spawnLoop);
+raf=requestAnimationFrame(loop);
 
-  gameLoop = setInterval(updateGame,30);
-
-  spawnLoop = setInterval(()=>{
-    if(running && !paused){
-      spawnObject();
-    }
-  },750);
 }
 
 
-/* =========================
-   GAME UPDATE
-========================= */
+function stop(){
 
-function updateGame(){
+running=false;
 
-  if(!running || paused) return;
+cancelAnimationFrame(raf);
 
-  score += 1;
-
-  document.getElementById("score").textContent =
-    score;
-
-  objects.forEach((obj,index)=>{
-
-    obj.y += 5;
-
-    obj.el.style.top =
-      obj.y+"px";
-
-    const playerLane = lane;
-
-    if(obj.lane === playerLane &&
-       obj.y > window.innerHeight-300 &&
-       obj.y < window.innerHeight-170){
-
-      if(obj.type === "coin"){
-
-        gameCoins++;
-
-        obj.el.remove();
-
-        objects.splice(index,1);
-
-        document.getElementById("gameCoins")
-          .textContent=gameCoins;
-
-      }else{
-
-        endGame();
-      }
-    }
-
-    if(obj.y > window.innerHeight+100){
-
-      obj.el.remove();
-
-      objects.splice(index,1);
-    }
-
-  });
 }
 
 
-/* =========================
-   OBJECT SPAWNING
-========================= */
+function pause(){
+
+if(!running)return;
+
+isPaused=!isPaused;
+
+if(!isPaused){
+
+last=performance.now();
+
+raf=requestAnimationFrame(loop);
+
+}
+
+}
+
+
+function laneMove(n){
+
+if(running&&!isPaused)
+
+lane=Math.max(0,Math.min(2,lane+n));
+
+}
+
+
+function doJump(){
+
+if(running&&!isPaused&&act==='none'){
+
+act='jump';
+
+setTimeout(()=>act==='jump'&&(act='none'),520);
+
+}
+
+}
+
+
+function doSlide(){
+
+if(running&&!isPaused&&act==='none'){
+
+act='slide';
+
+setTimeout(()=>act==='slide'&&(act='none'),520);
+
+}
+
+}
+
+
+addEventListener('keydown',e=>{
+
+if(e.key==='ArrowLeft')laneMove(-1);
+
+if(e.key==='ArrowRight')laneMove(1);
+
+if(e.key==='ArrowUp')doJump();
+
+if(e.key==='ArrowDown')doSlide();
+
+});
+
+
+let touch=null;
+
+cv.addEventListener('touchstart',e=>{
+
+let t=e.changedTouches[0];
+
+touch=[t.clientX,t.clientY];
+
+},{passive:true});
+
+
+cv.addEventListener('touchend',e=>{
+
+if(!touch)return;
+
+let t=e.changedTouches[0];
+
+let dx=t.clientX-touch[0];
+
+let dy=t.clientY-touch[1];
+
+touch=null;
+
+if(Math.max(Math.abs(dx),Math.abs(dy))<25)return;
+
+Math.abs(dx)>Math.abs(dy)
+?laneMove(dx>0?1:-1)
+:(dy<0?doJump():doSlide());
+
+},{passive:true});
+
+
+function loop(now){
+
+if(!running)return;
+
+let dt=Math.min((now-last)/16.67,2);
+
+last=now;
+
+if(!isPaused)update(dt);
+
+draw();
+
+if(running)
+raf=requestAnimationFrame(loop);
+
+}
+
+
+function update(dt){
+
+speed=Math.min(15,speed+.003*dt);
+
+let travel=speed*.0102*dt;
+
+spawn-=dt*16.67;
+
+if(spawn<=0){
+
+spawnObject();
+
+spawn=Math.max(240,620-speed*20)
+*(0.8+Math.random()*.35);
+
+}
+
+
+inv=Math.max(0,inv-dt*16.67);
+
+boost=Math.max(0,boost-dt*16.67);
+
+
+for(let i=items.length-1;i>=0;i--){
+
+let o=items[i];
+
+o.z+=travel;
+o.r+=.1*dt;
+
+
+if(o.type==='coin'&&magnet&&o.z>.48)
+o.lane=lane;
+
+
+if(o.z>.83&&!o.hit&&o.lane===lane){
+
+o.hit=true;
+
+
+if(o.type==='coin'){
+
+coins++;
+bank++;
+
+items.splice(i,1);
+
+continue;
+
+}
+
+
+if(o.type==='magnet'){
+
+magnet=1;
+
+boost=Math.max(boost,6500);
+
+items.splice(i,1);
+
+toast('🧲 MAGNET ON!');
+
+continue;
+
+}
+
+
+if(o.type==='speed'){
+
+boost=5000;
+
+items.splice(i,1);
+
+toast('👟 SPEED BOOST!');
+
+continue;
+
+}
+
+
+if(o.type==='shield'){
+
+shield=1;
+
+items.splice(i,1);
+
+toast('🛡️ SHIELD READY!');
+
+continue;
+
+}
+
+
+let safe=
+(o.type==='barrier'&&act==='jump')||
+(o.type==='train'&&act==='slide');
+
+
+if(!safe&&inv<=0){
+
+if(shield){
+
+shield=0;
+inv=1200;
+
+items.splice(i,1);
+
+toast('🛡️ Shield saved you!');
+
+continue;
+
+}
+
+endGame();
+
+return;
+
+}
+
+}
+
+
+if(o.z>1.12)
+items.splice(i,1);
+
+}
+
+
+score+=Math.floor(speed*.9*dt);
+
+meters+=Math.floor(speed*.18*dt);
+
+
+document.getElementById('score').textContent=
+String(score).padStart(5,'0');
+
+document.getElementById('coins').textContent=coins;
+
+document.getElementById('meters').textContent=meters;
+
+document.getElementById('pshield')
+.classList.toggle('active',!!shield);
+
+document.getElementById('pmagnet')
+.classList.toggle('active',!!magnet);
+
+document.getElementById('pspeed')
+.classList.toggle('active',boost>0);
+
+}
+
 
 function spawnObject(){
 
-  const el = document.createElement("div");
+let r=Math.random();
 
-  const isCoin =
-    Math.random() > .35;
+let l=Math.floor(Math.random()*3);
 
-  const type =
-    isCoin ? "coin" : "obstacle";
+let type=
+r<.55?'barrier':
+r<.70?'train':
+r<.90?'coin':
+r<.94?'magnet':
+r<.97?'speed':
+'shield';
 
-  el.className =
-    "object "+(isCoin?"coin-object":"");
-
-  el.textContent =
-    isCoin ? "🪙" :
-    (Math.random()>.5 ? "🚧":"🚆");
-
-  const laneIndex =
-    Math.floor(Math.random()*3);
-
-  el.style.top="-70px";
-
-  const lanePositions=[
-    "28%",
-    "50%",
-    "72%"
-  ];
-
-  el.style.left =
-    lanePositions[laneIndex];
-
-  el.style.transform =
-    "translateX(-50%)";
-
-  document.getElementById("gameObjects")
-    .appendChild(el);
-
-  objects.push({
-    el:el,
-    lane:laneIndex,
-    y:-70,
-    type:type
-  });
-}
-
-
-/* =========================
-   PLAYER MOVEMENT
-========================= */
-
-function setLane(){
-
-  const positions=[
-    "32%",
-    "50%",
-    "68%"
-  ];
-
-  document.getElementById("player")
-    .style.left=positions[lane];
-}
-
-
-function moveLeft(){
-
-  if(!running || paused) return;
-
-  if(lane>0){
-    lane--;
-    setLane();
-  }
-}
-
-
-function moveRight(){
-
-  if(!running || paused) return;
-
-  if(lane<2){
-    lane++;
-    setLane();
-  }
-}
-
-
-/* =========================
-   SWIPE CONTROLS
-========================= */
-
-let touchStartX=0;
-
-document.addEventListener("touchstart",e=>{
-  touchStartX=e.changedTouches[0].screenX;
-});
-
-document.addEventListener("touchend",e=>{
-
-  if(!running) return;
-
-  const touchEndX =
-    e.changedTouches[0].screenX;
-
-  const diff =
-    touchEndX-touchStartX;
-
-  if(Math.abs(diff)<35) return;
-
-  if(diff>0){
-    moveRight();
-  }else{
-    moveLeft();
-  }
+items.push({
+type,
+lane:l,
+z:.01,
+r:Math.random()*6
 });
 
 
-/* KEYBOARD */
+if(type!=='coin'&&Math.random()<.65)
 
-document.addEventListener("keydown",e=>{
-
-  if(e.key==="ArrowLeft"){
-    moveLeft();
-  }
-
-  if(e.key==="ArrowRight"){
-    moveRight();
-  }
+items.push({
+type:'coin',
+lane:(l+1)%3,
+z:.06,
+r:0
 });
 
-
-/* =========================
-   PAUSE
-========================= */
-
-function pauseGame(){
-
-  if(!running) return;
-
-  paused=!paused;
-
-  document.querySelector(".pause")
-    .textContent=paused?"▶":"Ⅱ";
 }
 
-
-/* =========================
-   GAME OVER
-========================= */
 
 function endGame(){
 
-  if(!running) return;
+running=false;
 
-  running=false;
+cancelAnimationFrame(raf);
 
-  clearInterval(gameLoop);
-  clearInterval(spawnLoop);
+if(score>best){
 
-  coins += gameCoins;
+best=score;
 
-  if(score>bestScore){
-    bestScore=score;
-  }
+localStorage.setItem('abeyBest',best);
 
-  save();
+}
 
-  document.getElementById("finalScore")
-    .textContent=score;
+document.getElementById('finalScore').textContent=score;
 
-  document.getElementById("finalCoins")
-    .textContent=gameCoins;
+document.getElementById('finalCoins').textContent=coins;
 
-  document.getElementById("gameOver")
-    .style.display="flex";
+document.getElementById('over')
+.classList.add('show');
+
 }
 
 
-/* =========================
-   POWER UPS
-========================= */
+function roadY(z){
 
-function activateMagnet(){
+return H*.40+(H*.93-H*.40)*z;
 
-  if(!running) return;
-
-  alert("🧲 Magnet activated!");
-}
-
-function activateSpeed(){
-
-  if(!running) return;
-
-  alert("👟 Speed activated!");
-}
-
-function activateShield(){
-
-  if(!running) return;
-
-  alert("🛡️ Shield activated!");
 }
 
 
-/* =========================
-   INITIALIZE
-========================= */
+function roadHalf(z){
 
-updateUI();
+return W*.18+(W*.76-W*.18)*z;
 
-document.querySelectorAll(".character")
-.forEach((el,index)=>{
+}
 
-  const names=[
-    "adrien",
-    "mrbeast",
-    "doraemon",
-    "ronaldo"
-  ];
 
-  if(names[index]===selectedCharacter){
-    el.classList.add("selected");
-  }
+function laneX(l,z){
 
-});
+return W/2+(l-1)*roadHalf(z)*.60;
+
+}
+
+
+function round(a,b,c,d,r){
+
+x.beginPath();
+
+x.roundRect(a,b,c,d,r);
+
+}
+
+
+function draw(){
+
+x.clearRect(0,0,W,H);
+
+sky();
+city();
+road();
+traffic();
+
+items
+.slice()
+.sort((a,b)=>a.z-b.z)
+.forEach(o=>object(o));
+
+player();
+
+crowd();
+
+}
+
+
+function sky(){
+
+let g=x.createLinearGradient(0,0,0,H*.5);
+
+g.addColorStop(0,'#20aaf3');
+
+g.addColorStop(1,'#c9f5ff');
+
+x.fillStyle=g;
+
+x.fillRect(0,0,W,H*.52);
+
+x.fillStyle='#ffe66b';
+
+x.beginPath();
+
+x.arc(W*.79,H*.10,28,0,7);
+
+x.fill();
+
+}
+
+
+function city(){
+
+x.fillStyle='#6f9aaa';
+
+for(let i=0;i<16;i++){
+
+let xx=i*W/15;
+
+let hh=35+(i*31)%90;
+
+x.fillRect(
+xx,
+H*.34-hh,
+W/19,
+hh
+);
+
+}
+
+
+x.fillStyle='#2e8b4b';
+
+for(let s=0;s<2;s++)
+for(let i=0;i<7;i++){
+
+let xx=s
+?W*.92+i*15
+:W*.08-i*15;
+
+let yy=H*.38-i*18;
+
+x.beginPath();
+
+x.arc(xx,yy,24,0,7);
+
+x.fill();
+
+}
+
+
+x.fillStyle='#536e80';
+
+x.fillRect(W*.24,H*.31,W*.52,10);
+
+x.strokeStyle='#6d8795';
+
+x.lineWidth=4;
+
+x.beginPath();
+
+x.arc(W*.5,H*.42,W*.27,Math.PI,0);
+
+x.stroke();
+
+}
+
+
+function road(){
+
+let hy=H*.40;
+
+x.fillStyle='#3e454b';
+
+x.beginPath();
+
+x.moveTo(W*.27,hy);
+x.lineTo(W*.73,hy);
+x.lineTo(W*1.05,H);
+x.lineTo(-W*.05,H);
+x.closePath();
+
+x.fill();
+
+
+x.fillStyle='#a5a39c';
+
+x.beginPath();
+
+x.moveTo(0,hy);
+x.lineTo(W*.27,hy);
+x.lineTo(0,H);
+x.closePath();
+
+x.fill();
+
+
+x.beginPath();
+
+x.moveTo(W,hy);
+x.lineTo(W*.73,hy);
+x.lineTo(W,H);
+x.closePath();
+
+x.fill();
+
+
+x.strokeStyle='#fff9';
+
+x.lineWidth=4;
+
+x.setLineDash([24,25]);
+
+for(let p of [.43,.57]){
+
+x.beginPath();
+
+x.moveTo(W*p,hy);
+
+x.lineTo(W*(p-.45),H);
+
+x.stroke();
+
+}
+
+x.setLineDash([]);
+
+
+for(let i=0;i<10;i++){
+
+let yy=hy+i*(H-hy)/10;
+
+x.fillStyle=i%2?'#f1f1ef':'#e33e34';
+
+x.fillRect(3,yy,24,14);
+
+x.fillRect(W-27,yy,24,14);
+
+}
+
+}
+
+
+function traffic(){
+
+for(let i=0;i<3;i++){
+
+let xx=laneX(i,.02),
+yy=roadY(.02);
+
+x.fillStyle=i===1?'#f0a51d':'#236fa7';
+
+round(xx-18,yy-20,36,31,7);
+
+x.fill();
+
+x.fillStyle='#162d40';
+
+x.fillRect(xx-11,yy-13,22,10);
+
+}
+
+}
+
+
+function object(o){
+
+let z=Math.min(o.z,1);
+
+let xx=laneX(o.lane,z);
+
+let yy=roadY(z);
+
+let s=.35+z*1.08;
+
+x.save();
+
+x.translate(xx,yy);
+
+x.scale(s,s);
+
+if(o.type==='coin'){
+
+x.rotate(Math.sin(o.r)*.25);
+
+coin();
+
+}
+else if(o.type==='barrier')barrier();
+else if(o.type==='train')train();
+else power(o.type);
+
+x.restore();
+
+}
+
+
+function coin(){
+
+let g=x.createRadialGradient(
+-7,-8,2,
+0,0,24
+);
+
+g.addColorStop(0,'#fff4a1');
+g.addColorStop(.4,'#ffd21a');
+g.addColorStop(1,'#e98700');
+
+x.fillStyle=g;
+
+x.beginPath();
+
+x.ellipse(0,0,23,27,0,0,7);
+
+x.fill();
+
+x.strokeStyle='#fff5a8';
+
+x.lineWidth=3;
+
+x.stroke();
+
+x.fillStyle='#925400';
+
+x.font='bold 24px Arial';
+
+x.textAlign='center';
+
+x.fillText('★',0,8);
+
+}
+
+
+function barrier(){
+
+x.fillStyle='#eee';
+
+round(-34,-25,68,50,7);
+
+x.fill();
+
+x.fillStyle='#e43e34';
+
+for(let a=-30;a<40;a+=22){
+
+x.beginPath();
+
+x.moveTo(a,-25);
+
+x.lineTo(a+15,-25);
+
+x.lineTo(a-3,25);
+
+x.lineTo(a-18,25);
+
+x.closePath();
+
+x.fill();
+
+}
+
+x.strokeStyle='#263848';
+
+x.lineWidth=4;
+
+x.stroke();
+
+}
+
+
+function train(){
+
+x.fillStyle='#187fc0';
+
+round(-31,-45,62,90,10);
+
+x.fill();
+
+x.fillStyle='#172d40';
+
+round(-22,-32,44,25,5);
+
+x.fill();
+
+x.fillStyle='#dcecf5';
+
+x.fillRect(-18,-28,14,16);
+
+x.fillRect(4,-28,14,16);
+
+x.fillStyle='#ffd51b';
+
+x.beginPath();
+
+x.arc(0,25,7,0,7);
+
+x.fill();
+
+}
+
+
+function power(t){
+
+x.fillStyle=
+t==='magnet'?'#e93d55':
+t==='speed'?'#288bff':
+'#12bfd7';
+
+x.beginPath();
+
+x.arc(0,0,25,0,7);
+
+x.fill();
+
+x.strokeStyle='white';
+
+x.lineWidth=3;
+
+x.stroke();
+
+x.font='25px Arial';
+
+x.textAlign='center';
+
+x.textBaseline='middle';
+
+x.fillText(
+t==='magnet'?'🧲':
+t==='speed'?'⚡':
+'🛡️',
+0,1
+);
+
+}
+
+
+function player(){
+
+let xx=laneX(lane,.91),
+yy=H*.80;
+
+if(act==='jump')yy-=86;
+
+if(act==='slide')yy+=28;
+
+x.save();
+
+x.translate(xx,yy);
+
+if(inv>0&&Math.floor(inv/100)%2)
+x.globalAlpha=.45;
+
+x.globalAlpha*=.25;
+
+x.fillStyle='#000';
+
+x.beginPath();
+
+x.ellipse(0,48,39,9,0,0,7);
+
+x.fill();
+
+x.globalAlpha=1;
+
+
+x.strokeStyle='#172435';
+
+x.lineWidth=15;
+
+x.lineCap='round';
+
+x.beginPath();
+
+x.moveTo(-9,16);
+x.lineTo(-18,47);
+
+x.moveTo(9,16);
+x.lineTo(20,44);
+
+x.stroke();
+
+
+x.strokeStyle='#f3f3f3';
+
+x.lineWidth=10;
+
+x.beginPath();
+
+x.moveTo(-20,47);
+x.lineTo(-4,47);
+
+x.moveTo(18,44);
+x.lineTo(32,44);
+
+x.stroke();
+
+
+x.fillStyle='#111d2b';
+
+round(-27,-27,54,55,18);
+
+x.fill();
+
+x.fillStyle='#16c5f4';
+
+x.fillRect(-20,-7,40,6);
+
+
+x.strokeStyle='#ffd0a7';
+
+x.lineWidth=13;
+
+x.beginPath();
+
+x.moveTo(-21,-12);
+x.lineTo(-40,5);
+
+x.moveTo(21,-12);
+x.lineTo(39,-27);
+
+x.stroke();
+
+
+x.fillStyle='#ffd0a7';
+
+x.beginPath();
+
+x.arc(0,-50,25,0,7);
+
+x.fill();
+
+
+x.fillStyle=
+selected==='adrien'?'#9b5128':
+selected==='mrbeast'?'#522c1e':
+'#273246';
+
+x.beginPath();
+
+x.arc(0,-59,26,Math.PI,7);
+
+x.lineTo(23,-49);
+
+x.quadraticCurveTo(0,-73,-25,-53);
+
+x.closePath();
+
+x.fill();
+
+
+x.fillStyle='#111923';
+
+round(-20,-52,40,12,5);
+
+x.fill();
+
+x.restore();
+
+}
+
+
+function crowd(){
+
+let yy=H*.95;
+
+for(let i=0;i<9;i++){
+
+let xx=(i+.5)*W/9;
+
+x.fillStyle=i%2?'#121a22':'#272f36';
+
+x.beginPath();
+
+x.arc(
+xx,
+yy-28-(i%2)*5,
+20,
+0,7
+);
+
+x.fill();
+
+
+x.fillStyle='#ffd0a5';
+
+x.beginPath();
+
+x.arc(
+xx,
+yy-35-(i%2)*5,
+11,
+0,7
+);
+
+x.fill();
+
+
+x.fillStyle=i%2?'#ef4040':'#111';
+
+x.fillRect(
+xx-23,
+yy-5,
+46,
+35
+);
+
+}
+
+sign(16,yy-92,'WE LOVE YOU!',-.08);
+
+sign(W-94,yy-90,'RUK JAA!',.07);
+
+}
+
+
+function sign(xx,yy,t,r){
+
+x.save();
+
+x.translate(xx,yy);
+
+x.rotate(r);
+
+x.fillStyle='#ead7a1';
+
+x.fillRect(0,0,76,38);
+
+x.fillStyle='#17283c';
+
+x.font='bold 10px Arial';
+
+x.fillText(t,5,23);
+
+x.restore();
+
+}
+
+
+renderChars();
 
 </script>
 
